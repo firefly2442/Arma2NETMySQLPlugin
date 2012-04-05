@@ -1,0 +1,10 @@
+[Bb]in
+[Oo]bj
+*.DS_Store
+[Tt]humbs.db
+*.ncb
+*.suo
+*.bak
+*.user
+*.[Cc]ache
+*.log
