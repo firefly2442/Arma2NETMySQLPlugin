@@ -22,19 +22,20 @@ namespace Arma2NETMySQLPlugin
         //"Arma2Net.Unmanaged" callExtension "Arma2NetMySQL ..."
         public override string Run(string args)
         {
-            ReadOnlyCollection<object> arguments = Format.SqfAsObject<ReadOnlyCollection<object>>(args);
-            if (arguments.Count >= 2 && arguments[0] != null && arguments[1] != null)
+            IList<object> arguments;
+            if (Format.SqfAsCollection(args, out arguments) && arguments.Count >= 2 && arguments[0] != null && arguments[1] != null)
             {
                 string database = arguments[0] as string;
                 string procedure = arguments[1] as string;
                 string parameters = arguments[2] as string;
                 //strip out [] characters at the beginning and end
-                if (parameters[0].ToString() == "[" && parameters[parameters.Length-1].ToString() == "]")
+                if (parameters[0].ToString() == "[" && parameters[parameters.Length - 1].ToString() == "]")
                 {
-                    parameters = parameters.Substring(1, parameters.Length-2);
+                    parameters = parameters.Substring(1, parameters.Length - 2);
                 }
                 List<string> split = new List<string>();
-                if (parameters != null) {
+                if (parameters != null)
+                {
                     split = parameters.Split(',').ToList<string>();
                 }
 
@@ -53,7 +54,10 @@ namespace Arma2NETMySQLPlugin
 
                 return Arma2Net.Managed.Format.ObjectAsSqf(false);
             }
-            throw new FunctionArgumentsInvalidException();
+            else
+            {
+                throw new FunctionArgumentsInvalidException();
+            }
         }
 
         public Arma2NETMySQLPlugin()
