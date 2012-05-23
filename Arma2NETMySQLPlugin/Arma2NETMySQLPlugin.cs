@@ -56,7 +56,7 @@ namespace Arma2NETMySQLPlugin
             }
             else
             {
-                throw new FunctionArgumentsInvalidException();
+                throw new FunctionNotFoundException();
             }
         }
 
