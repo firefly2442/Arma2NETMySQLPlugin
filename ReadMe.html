@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Arma2NETMySQL Plugin</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+
+</head>
+<body>
+
+<center>
+<h1>Arma2NETMySQL Plugin ReadMe</h1>
+</center>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#systemreqs">Requirements</a></li>
+<li><a href="#howto">How To Use</a></li>
+<li><a href="#known_issues">Known Issues</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#changelog">Changelog</a></li>
+<li><a href="#license">License</a></li>
+<li><a href="#thanks">Thanks To</a></li>
+</ul>
+
+
+<a name="intro"><h2>Introduction</h2></a>
+
+<p>Links:</p>
+<ul>
+	<li><a href="https://github.com/firefly2442/Arma2NETMySQLPlugin">Arma2NETMySQLPlugin</a></li>
+	<li><a href="https://github.com/firefly2442/Arma2NetMySQLPlugin-ExampleMission">Arma2NETMySQL Plugin Example Mission</a></li>
+</ul>
+
+<p>This program acts as an intermediary between Arma2 and a MySQL database.  It currently only supports MySQL.  It uses the
+<a href="https://dev-heaven.net/projects/a2n">Arma2NET</a> wrapper system.  It is written in C#.  The program has to be run on the
+same system as your Arma2 server, however, the MySQL database can be either local or remote.</p>
+
+<img src="images/arma2mysql_graphic.jpg" />
+
+
+<a name="systemreqs"><h2>Requirements</h2></a>
+
+To run the application:
+<ul>
+	<li>You need a Windows server. (see known issues)</li>
+	<li><a href="http://www.mysql.org" target="_blank">A MySQL server and database setup</a></li>
+	<li><a href="http://www.mysql.com/downloads/connector/net/">MySQL Connector for .NET</a></li>
+	<li><a href="http://www.microsoft.com/download/en/details.aspx?id=24872">Microsoft .NET Framework 4 Client Profile</a></li>
+	<li>Arma2OA Beta version 87640 or later (full client or dedicated server)</li>
+		<ul>
+			<li>See <a href="https://dev-heaven.net/issues/31028">here</a> for a note about Windows dedicated servers and required files.</li>
+		</ul>
+	</li>
+</ul>
+
+
+<a name="howto"><h2>How To Use Arma2NETMySQL</h2></a>
+
+<ul>
+	<li>Setup a MySQL database and create some stored procedures to use.</li>
+		<ul>
+			<li>MySQL stored procedures are essentially just stored commands that run.  If you know basic SQL commands (SELECT, 
+			INSERT, UPDATE) you should be fine.  These stored procedures can optionally have parameters that are passed which
+			can then be used in the procedure.</li>
+			<li>There are all kinds of tutorials on Google regarding MySQL stored procedures but the best one I've found so far with nice
+			examples are these: <a href="http://www.mysqltutorial.org/getting-started-with-mysql-stored-procedures.aspx" target="_blank">Getting Started</a> and
+			<a href="http://www.mysqltutorial.org/stored-procedures-parameters.aspx" target="_blank">Stored Procedure Parameters</a>.  The related tutorials links
+		on the bottom of the page are also in the same series.</li>
+			<li>In addition, there's an example SQL file that sets up two databases and some example stored procedures for the example mission.</li>
+		</ul>
+	<li>Edit the Databases.txt file (requires separate lines for each database, even if they're on the same host).</li>
+		<ul>
+			<li>This database text file stores usernames and passwords in plaintext.  Be very careful about who has access to this!  In addition,
+			Arma2NETMySQL does not limit the actions that can be performed on the database.  For security reasons, create a username that is locked down
+			and only has access to a single database.  We will not be responsible if something gets deleted!</li>
+		</ul>
+	<li>Run Arma2 and use this for your command line parameters (for the server which connects to the database):
+		<pre>-mod=expansion\beta;expansion\beta\expansion;@CBA;@CBA_A2;@CBA_OA;@Arma2NET -arma2netdev</pre>
+		Clients do not need to use this, they will interact with the Arma2 server and through SQF scripting, you can
+		pass the information from the database back to them or use it however you need.
+	</li>
+	<li>Look at the <a href="https://github.com/firefly2442/Arma2NetMySQLPlugin-ExampleMission">example mission</a>
+	for how to use the SQF scripting and get data inside the game.</li>
+	<li>Use the array of arrays that are returned back.</li>
+	<li>Enjoy.</li>
+</ul>
+
+<a name="known_issues"><h2>Known Issues</h2></a>
+
+<p>Arma2NETMySQL Plugin uses the callExtension function, however, there are some
+<a href="http://community.bistudio.com/wiki/Extensions#A_few_technical_considerations">technical considerations</a> as part of this.
+</p>
+
+<a name="troubleshooting"><h2>Troubleshooting</h2></a>
+
+<p>Stuck?  First check the "logs" folder.  The program creates a new log file each time it's run.  Go into your root Arma2 folder where
+the executable is, then find the "logs" folder.  If there are errors or things, they will show up there.</p>
+
+<p>If you're still stuck or you found a bug, please create an issue ticket here:
+<a href="https://github.com/firefly2442/Arma2NETMySQLPlugin">Github page</a>.</p>
+
+<a name="changelog"><h2>Changelog</h2></a>
+
+<ul>
+<li>Version 0.1
+	<ul>
+		<li>Testing...</li>
+	</ul>
+</li>
+</ul>
+
+<a name="license"><h2>License</h2></a>
+
+<p>Arma2NETMySQL is licensed under the <a href="license.txt" target="_blank">GPL version 3</a>.</p>
+
+<a name="thanks"><h2>Thanks To</h2></a>
+
+<ul>
+<li>Thanks to Scott_NZ for <a href="https://dev-heaven.net/projects/a2n">Arma2NET</a></li>
+<li>Thank you to Gnome, Robalo, Buehgler and all the guys over at <a href="http://www.alphasquad.net" target="_blank">AlphaSquad</a>.</li>
+<li>Thanks to JMan at <a href="http://www.kellys-heroes.eu">Kellys Heroes</a>.</li>
+<li>Thanks to all the testers.</li>
+<li><a href="http://www.bistudio.com" target="_blank">Bohemia Interactive</a> for creating an awesome game and staying true to the community.</li>
+</ul>
+
+</body>
+</html>
