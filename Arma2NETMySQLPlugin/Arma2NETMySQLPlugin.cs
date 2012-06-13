@@ -70,6 +70,8 @@ namespace Arma2NETMySQLPlugin
             Logger.addMessage(Logger.LogType.Info, "Arma2NETMySQL Plugin Started.");
             Logger.addMessage(Logger.LogType.Info, "Version number: " + version);
 
+            Logger.addMessage(Logger.LogType.Info, "Compiled with Arma2NET Version: " + Bridge.Version);
+
             //Load in Databases.txt file
             //This also sets up the SQLProvider associated with the database
             Logger.addMessage(Logger.LogType.Info, "Loading databases...");
