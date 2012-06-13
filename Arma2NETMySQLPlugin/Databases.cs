@@ -33,7 +33,7 @@ namespace Arma2NETMySQLPlugin
                     if (split.Length == 5)
                     {
                         Logger.addMessage(Logger.LogType.Info, "Database: " + split[0] + " IPAddress: " + split[1] + " Port: " + split[2] + " Username: " + split[3] + " Password: NotShownForSecurityReasons");
-                        DatabaseObject temp = new DatabaseObject(split[0], split[1], split[2], split[3], split[4]);                        
+                        DatabaseObject temp = new DatabaseObject(split[0], split[1], split[2], split[3], split[4]);
                         databaseList.Add(temp);
                     }
                     else if (line.Contains(","))
