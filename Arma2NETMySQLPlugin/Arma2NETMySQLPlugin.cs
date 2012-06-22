@@ -44,14 +44,6 @@ namespace Arma2NETMySQLPlugin
                 if (dbs.SQLProviderExists(database))
                 {
                     IEnumerable<string[]> returned = dbs.getSQLProvider(database).RunProcedure(procedure, split.ToArray());
-                    string[][] converted_array = returned.ToArray();
-                    string combined_string = "";
-                    for (int i = 0; i < converted_array.Count(); i++) {
-                        for (int j = 0; j < converted_array[i].Count(); j++) {
-                            combined_string = combined_string + converted_array[i][j] + ",";
-                        }
-                    }
-                    Logger.addMessage(Logger.LogType.Info, "Returning to Arma2: " + combined_string);
                     return Arma2Net.Managed.Format.ObjectAsSqf(returned);
                 }
                 else
