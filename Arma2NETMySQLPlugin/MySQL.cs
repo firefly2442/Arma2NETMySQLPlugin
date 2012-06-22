@@ -63,6 +63,7 @@ namespace Arma2NETMySQLPlugin
 
         public IEnumerable<string[]> RunProcedure(string procedure, string[] parameters)
         {
+            //Logger.addMessage(Logger.LogType.Info, "Started RunProcedure");
             if (connection != null && connection.State == System.Data.ConnectionState.Open)
             {
                 MySqlCommand command = GetCommand(procedure);
@@ -115,9 +116,11 @@ namespace Arma2NETMySQLPlugin
                 }
                 else
                 {
+                    //Logger.addMessage(Logger.LogType.Info, "Returning false from RunProcedure");
                     yield return new string[] { "false" };
                 }
             }
+            //Logger.addMessage(Logger.LogType.Info, "yield breaking in RunProcedure");
             yield break;
         }
 

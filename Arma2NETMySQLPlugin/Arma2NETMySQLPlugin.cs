@@ -59,6 +59,7 @@ namespace Arma2NETMySQLPlugin
                     Logger.addMessage(Logger.LogType.Warning, "The database: " + database + " is not loaded in through the Databases.txt file.");
                 }
 
+                //Logger.addMessage(Logger.LogType.Info, "Returning false object");
                 return Arma2Net.Managed.Format.ObjectAsSqf(false);
             }
             else
