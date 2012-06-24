@@ -59,30 +59,54 @@ To run the application:
 <a name="howto"><h2>How To Use Arma2NETMySQL</h2></a>
 
 <ul>
-	<li>Setup a MySQL database and create some stored procedures to use.</li>
-		<ul>
-			<li>MySQL stored procedures are essentially just stored commands that run.  If you know basic SQL commands (SELECT, 
-			INSERT, UPDATE) you should be fine.  These stored procedures can optionally have parameters that are passed which
-			can then be used in the procedure.</li>
-			<li>There are all kinds of tutorials on Google regarding MySQL stored procedures but the best one I've found so far with nice
-			examples are these: <a href="http://www.mysqltutorial.org/getting-started-with-mysql-stored-procedures.aspx" target="_blank">Getting Started</a> and
-			<a href="http://www.mysqltutorial.org/stored-procedures-parameters.aspx" target="_blank">Stored Procedure Parameters</a>.  The related tutorials links
-		on the bottom of the page are also in the same series.</li>
-			<li>In addition, there's an example SQL file that sets up two databases and some example stored procedures for the example mission.</li>
-		</ul>
 	<li>Edit the Databases.txt file (requires separate lines for each database, even if they're on the same host).</li>
 		<ul>
 			<li>This database text file stores usernames and passwords in plaintext.  Be very careful about who has access to this!  In addition,
 			Arma2NETMySQL does not limit the actions that can be performed on the database.  For security reasons, create a username that is locked down
-			and only has access to a single database.  We will not be responsible if something gets deleted!</li>
+			and only has access to a single database.  We do not recommend connecting to the database as the root user.
+			This is generally a really bad choice because this user has full access.
+			We will not be responsible if something gets deleted!</li>
 		</ul>
+	<li>There are two ways to run MySQL queries with this plugin.  One is using MySQL stored procedures and the other
+	is just to use straight queries.</li>
+	<ol>
+		<li>Stored Procedures:</li>
+			<ul>
+				<li>Setup a MySQL database and create some stored procedures to use.</li>
+				<li>MySQL stored procedures are essentially just stored commands that run.  If you know basic SQL commands (SELECT, 
+				INSERT, UPDATE) you should be fine.  These stored procedures can optionally have parameters that are passed which
+				can then be used in the procedure.</li>
+				<li>There are all kinds of tutorials on Google regarding MySQL stored procedures but the best one I've found so far with nice
+				examples are these: <a href="http://www.mysqltutorial.org/getting-started-with-mysql-stored-procedures.aspx" target="_blank">Getting Started</a> and
+				<a href="http://www.mysqltutorial.org/stored-procedures-parameters.aspx" target="_blank">Stored Procedure Parameters</a>.  The related tutorials links
+				on the bottom of the page are also in the same series.</li>
+				<li>Look at the <a href="https://github.com/firefly2442/Arma2NetMySQLPlugin-ExampleMission">example mission</a> which has an SQL file
+				that sets up a database and some stored procedures for an example.</li>
+				<li>Your SQF code will look something like this:
+				<pre>_strCreate = format ["[u=%1,n=%2,a=%3,b=%4,c=%5,d=%6,e=%7]", _allWeapons select 0, _loadoutName, _allWeapons select 1,
+								_allWeapons select 2, _allWeapons select 3, 
+								_allWeapons select 4, _allWeapons select 5];
+					_create = "Arma2Net.Unmanaged" callExtension format ["Arma2NETMySQL ['weapons', 'CreateNewLoadOut', '%1']", _strCreate];</pre>
+				In this example, "weapons" is the database name.  "CreateNewLoadOut" is the MySQL stored procedure.  And all the parameters
+				as part of the procedure are formatted appropriately and then passed along as the third argument.</li>
+			</ul>
+		<li>Straight queries:</li>
+			<ul>
+				<li>This is similar to what you're probably used to.  Commands like:
+				<pre>SELECT * FROM table WHERE name = 'user'</pre></li>
+				<li>Your SQF code will look something like this:
+				<pre>_selectTest = "Arma2Net.Unmanaged" callExtension "Arma2NETMySQLCommand ['weapons', 'SELECT * FROM users LIMIT 3']";</pre>
+				In this example, "weapons" is the database name.  The next portion is the entire MySQL command which you will need
+				to create manually.  Note that the call names are different between running stored procedures versus straight queries.</li>
+			</ul>
+	</ol>
 	<li>Run Arma2 and use this for your command line parameters (for the server which connects to the database):
 		<pre>-mod=expansion\beta;expansion\beta\expansion;@CBA;@CBA_A2;@CBA_OA;@Arma2NET -arma2netdev</pre>
 		<p>Alternatively, you can not use the -arma2netdev commandline parameter and just edit one of the settings file.
 		Open up Settings.yaml and set "DisableSandboxing" to true.  Essentially, the reason why all of this is necessary
 		is because only approved "signed" versions of plugins are accepted when the sandbox is active.  This allows third-party
 		plugins to be run.</p>
-		<p>Arma2 clients do not need to do any of this.  They will interact with the Arma2 server and through SQF scripting, so you can
+		<p>Arma2 player clients do not need to do any of this.  They will interact with the Arma2 server and through SQF scripting, so you can
 		pass the information from the database back to them or use it however you need.</p>
 	</li>
 	<li>Look at the <a href="https://github.com/firefly2442/Arma2NetMySQLPlugin-ExampleMission">example mission</a>
@@ -96,9 +120,15 @@ To run the application:
 <p>Arma2NETMySQL Plugin uses the callExtension function, however, there are some
 <a href="http://community.bistudio.com/wiki/Extensions#A_few_technical_considerations">technical considerations</a> as part of this.
 </p>
+<p>Returning results has a limit of 4000 characters.  If you try to run a MySQL query that will return a result longer than 4000 characters,
+it will return the string "TooLong".  Then you know you will need to limit the number of results that are returned.  In MySQL,
+you can use <a href="https://dev.mysql.com/doc/refman/5.0/en/select.html">the limit parameter</a>.  This is a limitation of
+Arma2 so don't ask for this to be fixed.</p>
 
 <a name="troubleshooting"><h2>Troubleshooting</h2></a>
 
+<p>If you are getting a returned result of "Error" in Arma2, this means there's something wrong with your MySQL query.  Check
+the logs to track down the problem.</p>
 <p>Stuck?  First check the "logs" folder.  The plugin creates a new log file each time it's run.  Go into your root Arma2 folder where
 the executable is, then find the "logs" folder.  If there are errors or things, they will show up there.  If you don't have
 a logs folder or it's empty, this is a sign the plugin isn't running.  Try the second step:</p>
