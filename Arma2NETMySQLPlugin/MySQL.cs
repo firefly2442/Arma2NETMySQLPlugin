@@ -136,7 +136,17 @@ namespace Arma2NETMySQLPlugin
                         }
                     }
                     reader.Close();
-                    // check length to make sure we're not tripping the ResultTooLong exception in Bridge.cpp
+                    /*
+                     * check length to make sure we're not tripping the ResultTooLong exception in Bridge.cpp
+                     * 
+                     * callExtension is the method that is used by Arma2NET to pass information between itself and Arma2
+                     * callExtension has a size limit for the max amount of data that can be passed:
+                     * http://community.bistudio.com/wiki/Extensions#A_few_technical_considerations
+                     * The limit is 4 Kilobytes which corresponds to 4000 characters in C#
+                     * One character = one byte
+                     * The Wiki notes that this size limit could change through future patches.
+                     * 
+                     */
                     string total_length = string.Join(",", to_return.ToArray());
                     if (total_length.Length > 4000) {
                         return new string[] { "TooLong" };
