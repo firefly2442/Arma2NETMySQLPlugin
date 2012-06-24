@@ -9,9 +9,10 @@ namespace Arma2NETMySQLPlugin
 {
     class MySQL
     {
-        MySqlConnection connection;
+        public static Databases dbs = null;
 
         private object getCommandSync = new object();
+        private MySqlConnection connection;
 
         public MySQL()
         {
@@ -84,44 +85,68 @@ namespace Arma2NETMySQLPlugin
                     }
                 }
 
-                MySqlDataReader reader = null;
-
-                Boolean mysql_error = false;
-                try
-                {
-                    //Logger.addMessage(Logger.LogType.Info, "Executing mysql command.");
-                    reader = command.ExecuteReader();
-                }
-                catch (Exception sql_ex)
-                {
-                    //Catch any MySQL errors (bad procedure name, missing/malformed parameters, etc.) and just return false
-                    //Can't use yield in a try/catch so we'll return later...
-                    mysql_error = true;
-                    Logger.addMessage(Logger.LogType.Warning, "MySQL error. " + sql_ex.ToString());
-                }
-
-                if (mysql_error == false)
-                {
-                    while (reader.Read())
-                    {
-                        string[] row = new string[reader.FieldCount];
-                        for (int i = 0; i < reader.FieldCount; i++)
-                        {
-                            row[i] = reader.GetString(i);
-                            //Logger.addMessage(Logger.LogType.Info, "Row value is: " + row[i].ToString());
-                        }
-                        yield return row;
-                    }
-                    reader.Close();
-                }
-                else
-                {
-                    //Logger.addMessage(Logger.LogType.Info, "Returning false from RunProcedure");
-                    yield return new string[] { "false" };
-                }
+                yield return RunOnDatabase(command);
             }
             //Logger.addMessage(Logger.LogType.Info, "yield breaking in RunProcedure");
             yield break;
+        }
+
+        public IEnumerable<string[]> RunCommand(string mysql_command)
+        {
+            //Logger.addMessage(Logger.LogType.Info, "Started RunCommand");
+            if (connection != null && connection.State == System.Data.ConnectionState.Open)
+            {
+                MySqlCommand command = new MySqlCommand(mysql_command, connection);
+                yield return RunOnDatabase(command);
+            }
+            //Logger.addMessage(Logger.LogType.Info, "yield breaking in RunProcedure");
+            yield break;
+        }
+
+        private string[] RunOnDatabase(MySqlCommand command)
+        {
+            MySqlDataReader reader = null;
+
+            Boolean mysql_error = false;
+            try
+            {
+                //Logger.addMessage(Logger.LogType.Info, "Executing mysql command.");
+                reader = command.ExecuteReader();
+            }
+            catch (Exception sql_ex)
+            {
+                //Catch any MySQL errors (bad procedure name, missing/malformed parameters, etc.) and just return false
+                //Can't use yield in a try/catch so we'll return later...
+                mysql_error = true;
+                Logger.addMessage(Logger.LogType.Warning, "MySQL error. " + sql_ex.ToString());
+            }
+
+            using (reader)
+            {
+                if (mysql_error == false)
+                {
+                    List<string> to_return = new List<string>();
+                    while (reader.Read())
+                    {
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            string value = reader.GetString(i);
+                            to_return.Add(value);
+                            //Logger.addMessage(Logger.LogType.Info, "Row value is: " + value);
+                        }
+                    }
+                    reader.Close();
+                    // check length to make sure we're not tripping the ResultTooLong exception in Bridge.cpp
+                    string total_length = string.Join(",", to_return.ToArray());
+                    if (total_length.Length > 4000) {
+                        return new string[] { "TooLong" };
+                    } else {
+                        return to_return.ToArray();
+                    }
+                }
+            }
+            //Logger.addMessage(Logger.LogType.Info, "Returning error from RunProcedure");
+            return new string[] { "Error" };
         }
 
         private MySqlCommand GetCommand(string procedureName)

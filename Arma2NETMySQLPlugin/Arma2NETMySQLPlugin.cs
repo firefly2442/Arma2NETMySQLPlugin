@@ -16,8 +16,6 @@ namespace Arma2NETMySQLPlugin
 
         const string version = "0.1";
 
-        Databases dbs = null;
-
         //This method is called when callExtension is used from SQF:
         //"Arma2Net.Unmanaged" callExtension "Arma2NetMySQL ..."
         public override string Run(string args)
@@ -41,9 +39,9 @@ namespace Arma2NETMySQLPlugin
 
                 Logger.addMessage(Logger.LogType.Info, "Received - Database: " + database + " Procedure: " + procedure + " Parameters: " + parameters.ToString());
 
-                if (dbs.SQLProviderExists(database))
+                if (MySQL.dbs.SQLProviderExists(database))
                 {
-                    IEnumerable<string[]> returned = dbs.getSQLProvider(database).RunProcedure(procedure, split.ToArray());
+                    IEnumerable<string[]> returned = MySQL.dbs.getSQLProvider(database).RunProcedure(procedure, split.ToArray());
                     return Arma2Net.Managed.Format.ObjectAsSqf(returned);
                 }
                 else
@@ -75,7 +73,43 @@ namespace Arma2NETMySQLPlugin
             //Load in Databases.txt file
             //This also sets up the SQLProvider associated with the database
             Logger.addMessage(Logger.LogType.Info, "Loading databases...");
-            dbs = new Databases();
+            MySQL.dbs = new Databases();
+        }
+    }
+
+
+    [AddIn("Arma2NETMySQLCommand")] //the function name for the plugin (called from Arma side)
+    public class Arma2NETMySQLPluginCommand : Arma2NetAddIn
+    {
+        //This method is called when callExtension is used from SQF:
+        //"Arma2Net.Unmanaged" callExtension "Arma2NetMySQLCommand ..."
+        public override string Run(string args)
+        {
+            IList<object> arguments;
+            if (Format.SqfAsCollection(args, out arguments) && arguments.Count == 2 && arguments[0] != null && arguments[1] != null)
+            {
+                string database = arguments[0] as string;
+                string mysql_command = arguments[1] as string;
+
+                Logger.addMessage(Logger.LogType.Info, "Received - Database: " + database + " MySQL Command: " + mysql_command.ToString());
+
+                if (MySQL.dbs.SQLProviderExists(database))
+                {
+                    IEnumerable<string[]> returned = MySQL.dbs.getSQLProvider(database).RunCommand(mysql_command);
+                    return Arma2Net.Managed.Format.ObjectAsSqf(returned);
+                }
+                else
+                {
+                    Logger.addMessage(Logger.LogType.Warning, "The database: " + database + " is not loaded in through the Databases.txt file.");
+                }
+
+                //Logger.addMessage(Logger.LogType.Info, "Returning false object");
+                return Arma2Net.Managed.Format.ObjectAsSqf(false);
+            }
+            else
+            {
+                throw new FunctionNotFoundException();
+            }
         }
     }
 }
