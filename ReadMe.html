@@ -36,6 +36,22 @@
 <a href="https://dev-heaven.net/projects/a2n">Arma2NET</a> wrapper system.  It is written in C#.  The program has to be run on the
 same system as your Arma2 server, however, the MySQL database can be either local or remote.</p>
 
+<p>History:</p>
+<p>This program has had a long history.  Initially, the program used JayArma2Lib because DLL injections were the only way to
+pass information between Arma2 and the outside.  Eventually, BIS added <a href="http://community.bistudio.com/wiki/callExtension">callExtension</a>
+which allowed for a more structured (non-hacky) way to pass information.  JayArma2Lib switched to this and things continued.  Development
+was done <a href="http://dev-heaven.net/projects/arma2-mysql">here</a> and an example mission was
+<a href="http://dev-heaven.net/projects/arma2mysql-example">here</a>.  Technically, all that code should still work but the bad
+part was all the formatting and ugly stuff that had to be done in game via the SQF scripting in order to get the data into a reasonable
+format.  It involved iterating through strings and creating arrays and generally was still pretty hacky.  Then,
+<a href="https://dev-heaven.net/projects/a2n">Arma2NET</a> came along and things got better.  This wrapper system allowed us to
+return nice results back to Arma2 and not have to deal with all the formatting nonsense.  I ended up just copying the bits and pieces
+that were needed from the past project and creating a new application.  Development is all done via the Github pages.  In addition,
+the <a href="http://forums.bistudio.com/showthread.php?111484-ArmA2-Persistent-Database-Scripts-WIP">Persistent Database Scripts</a>
+system as created by <a href="http://forums.bistudio.com/member.php?30502-KH-Jman">[KH]JMan</a> currently uses builds of this program
+for saving data.
+</p>
+
 <img src="images/arma2mysql_graphic.jpg" />
 
 
@@ -139,10 +155,11 @@ These can get very long so scroll all the way to the bottom to see the latest ru
 your SQF scripting code or other such problems.  Note, these path locations are for Windows 7 (and Vista?) and may be different
 for other versions of Windows.</p>
 
-<p>If you're still stuck or you found a bug, please create an issue ticket here:
+<p>If you found a bug, please create an issue ticket here:
 <a href="https://github.com/firefly2442/Arma2NETMySQLPlugin">Github page</a>.</p>
-<p>There is also discussion on the <a href="http://forums.bistudio.com">BIS forums</a> so that's another
-place to go for help.  The forums are preferred over emailing me because then the question/answer is available to
+<p>There is also <a href="http://forums.bistudio.com/showthread.php?128795-Arma2MySQL">a thread</a>
+on the <a href="http://forums.bistudio.com">BIS forums</a> so if you're stuck, you can ask there.
+The forums are preferred over emailing me because then the question/answer is available to
 future people who have similar problems.</p>
 
 <a name="changelog"><h2>Changelog</h2></a>
