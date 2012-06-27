@@ -14,8 +14,6 @@ namespace Arma2NETMySQLPlugin
     {
         Logger logger_object = null;
 
-        const string version = "0.1";
-
         //This method is called when callExtension is used from SQF:
         //"Arma2Net.Unmanaged" callExtension "Arma2NetMySQL ..."
         public override string Run(string args)
@@ -66,7 +64,13 @@ namespace Arma2NETMySQLPlugin
             logger_object = new Logger();
 
             Logger.addMessage(Logger.LogType.Info, "Arma2NETMySQL Plugin Started.");
-            Logger.addMessage(Logger.LogType.Info, "Version number: " + version);
+
+            //Use AssemblyInfo.cs version number
+            //Holy cow this is confusing...
+            //http://stackoverflow.com/questions/909555/how-can-i-get-the-assembly-file-version
+            //http://all-things-pure.blogspot.com/2009/09/assembly-version-file-version-product.html
+            //http://stackoverflow.com/questions/64602/what-are-differences-between-assemblyversion-assemblyfileversion-and-assemblyin
+            Logger.addMessage(Logger.LogType.Info, "Version number: " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
 
             Logger.addMessage(Logger.LogType.Info, "Compiled with Arma2NET Version: " + Bridge.Version);
 
