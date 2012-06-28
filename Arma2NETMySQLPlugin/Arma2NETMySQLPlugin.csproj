@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arma2NETMySQLPlugin.cs" />
+    <Compile Include="Startup.cs" />
     <Compile Include="DatabaseObject.cs" />
     <Compile Include="Databases.cs" />
     <Compile Include="Logger.cs" />

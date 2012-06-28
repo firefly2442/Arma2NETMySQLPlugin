@@ -9,15 +9,17 @@ using Arma2Net.Managed;
 
 namespace Arma2NETMySQLPlugin
 {
-    [AddIn("Arma2NETMySQL")] //the function name for the plugin (called from Arma side)
-    public class Arma2NETMySQLPlugin : Arma2NetAddIn
+    //the function name for the plugin (called from Arma side)
+    [AddIn("Arma2NETMySQL", Version = "0.1.0.0", Publisher = "firefly2442", Description = "Runs MySQL procedure commands.")]
+    public class Arma2NETMySQLPlugin : Arma2NetLongOutputAddIn
     {
-        Logger logger_object = null;
-
         //This method is called when callExtension is used from SQF:
         //"Arma2Net.Unmanaged" callExtension "Arma2NetMySQL ..."
-        public override string Run(string args)
+        public override string Run(string args, int maxResultSize)
         {
+            //if we haven't setup the database connection and such yet, this will do it
+            Startup.StartupConnection();
+
             IList<object> arguments;
             if (Format.SqfAsCollection(args, out arguments) && arguments.Count >= 2 && arguments[0] != null && arguments[1] != null)
             {
@@ -39,7 +41,7 @@ namespace Arma2NETMySQLPlugin
 
                 if (MySQL.dbs.SQLProviderExists(database))
                 {
-                    IEnumerable<string[]> returned = MySQL.dbs.getSQLProvider(database).RunProcedure(procedure, split.ToArray());
+                    IEnumerable<string[]> returned = MySQL.dbs.getSQLProvider(database).RunProcedure(procedure, split.ToArray(), maxResultSize);
                     return Arma2Net.Managed.Format.ObjectAsSqf(returned);
                 }
                 else
@@ -52,43 +54,23 @@ namespace Arma2NETMySQLPlugin
             }
             else
             {
-                throw new FunctionNotFoundException();
+                Logger.addMessage(Logger.LogType.Error, "The number and/or format of the arguments passed in doesn't match.");
+                throw new ArgumentException();
             }
-        }
-
-        public Arma2NETMySQLPlugin()
-        {
-            //constructor
-
-            //Start up logging
-            logger_object = new Logger();
-
-            Logger.addMessage(Logger.LogType.Info, "Arma2NETMySQL Plugin Started.");
-
-            //Use AssemblyInfo.cs version number
-            //Holy cow this is confusing...
-            //http://stackoverflow.com/questions/909555/how-can-i-get-the-assembly-file-version
-            //http://all-things-pure.blogspot.com/2009/09/assembly-version-file-version-product.html
-            //http://stackoverflow.com/questions/64602/what-are-differences-between-assemblyversion-assemblyfileversion-and-assemblyin
-            Logger.addMessage(Logger.LogType.Info, "Version number: " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
-
-            Logger.addMessage(Logger.LogType.Info, "Compiled with Arma2NET Version: " + Bridge.Version);
-
-            //Load in Databases.txt file
-            //This also sets up the SQLProvider associated with the database
-            Logger.addMessage(Logger.LogType.Info, "Loading databases...");
-            MySQL.dbs = new Databases();
         }
     }
 
-
-    [AddIn("Arma2NETMySQLCommand")] //the function name for the plugin (called from Arma side)
-    public class Arma2NETMySQLPluginCommand : Arma2NetAddIn
+    //the function name for the plugin (called from Arma side)
+    [AddIn("Arma2NETMySQLCommand", Version = "0.1.0.0", Publisher = "firefly2442", Description = "Runs raw MySQL commands")]
+    public class Arma2NETMySQLPluginCommand : Arma2NetLongOutputAddIn
     {
         //This method is called when callExtension is used from SQF:
         //"Arma2Net.Unmanaged" callExtension "Arma2NetMySQLCommand ..."
-        public override string Run(string args)
+        public override string Run(string args, int maxResultSize)
         {
+            //if we haven't setup the database connection and such yet, this will do it
+            Startup.StartupConnection();
+
             IList<object> arguments;
             if (Format.SqfAsCollection(args, out arguments) && arguments.Count == 2 && arguments[0] != null && arguments[1] != null)
             {
@@ -99,7 +81,7 @@ namespace Arma2NETMySQLPlugin
 
                 if (MySQL.dbs.SQLProviderExists(database))
                 {
-                    IEnumerable<string[]> returned = MySQL.dbs.getSQLProvider(database).RunCommand(mysql_command);
+                    IEnumerable<string[]> returned = MySQL.dbs.getSQLProvider(database).RunCommand(mysql_command, maxResultSize);
                     return Arma2Net.Managed.Format.ObjectAsSqf(returned);
                 }
                 else
@@ -112,7 +94,8 @@ namespace Arma2NETMySQLPlugin
             }
             else
             {
-                throw new FunctionNotFoundException();
+                Logger.addMessage(Logger.LogType.Error, "The number and/or format of the arguments passed in doesn't match.");
+                throw new ArgumentException();
             }
         }
     }

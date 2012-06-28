@@ -9,10 +9,10 @@ namespace Arma2NETMySQLPlugin
 {
     class MySQL
     {
-        public static Databases dbs = null;
-
         private object getCommandSync = new object();
         private MySqlConnection connection;
+
+        public static Databases dbs = null;
 
         public MySQL()
         {
@@ -62,7 +62,7 @@ namespace Arma2NETMySQLPlugin
             }
         }
 
-        public IEnumerable<string[]> RunProcedure(string procedure, string[] parameters)
+        public IEnumerable<string[]> RunProcedure(string procedure, string[] parameters, int maxResultSize)
         {
             //Logger.addMessage(Logger.LogType.Info, "Started RunProcedure");
             if (connection != null && connection.State == System.Data.ConnectionState.Open)
@@ -85,25 +85,25 @@ namespace Arma2NETMySQLPlugin
                     }
                 }
 
-                yield return RunOnDatabase(command);
+                yield return RunOnDatabase(command, maxResultSize);
             }
             //Logger.addMessage(Logger.LogType.Info, "yield breaking in RunProcedure");
             yield break;
         }
 
-        public IEnumerable<string[]> RunCommand(string mysql_command)
+        public IEnumerable<string[]> RunCommand(string mysql_command, int maxResultSize)
         {
             //Logger.addMessage(Logger.LogType.Info, "Started RunCommand");
             if (connection != null && connection.State == System.Data.ConnectionState.Open)
             {
                 MySqlCommand command = new MySqlCommand(mysql_command, connection);
-                yield return RunOnDatabase(command);
+                yield return RunOnDatabase(command, maxResultSize);
             }
             //Logger.addMessage(Logger.LogType.Info, "yield breaking in RunProcedure");
             yield break;
         }
 
-        private string[] RunOnDatabase(MySqlCommand command)
+        private string[] RunOnDatabase(MySqlCommand command, int maxResultSize)
         {
             MySqlDataReader reader = null;
 
@@ -137,8 +137,6 @@ namespace Arma2NETMySQLPlugin
                     }
                     reader.Close();
                     /*
-                     * check length to make sure we're not tripping the ResultTooLong exception in Bridge.cpp
-                     * 
                      * callExtension is the method that is used by Arma2NET to pass information between itself and Arma2
                      * callExtension has a size limit for the max amount of data that can be passed:
                      * http://community.bistudio.com/wiki/Extensions#A_few_technical_considerations
@@ -146,9 +144,14 @@ namespace Arma2NETMySQLPlugin
                      * One character = one byte
                      * The Wiki notes that this size limit could change through future patches.
                      * 
+                     * Arma2NET has a long output addin method that does the following:
+                     * "From version 1.5, Arma2NET supports plugins requiring the maximum result size as an argument to the Run method.
+                     * You can use this to ensure that a plugin won't return a result that is too long for Arma 2 to handle."
+                     * 
                      */
                     string total_length = string.Join(",", to_return.ToArray());
-                    if (total_length.Length > 4000) {
+                    if (total_length.Length > maxResultSize)
+                    {
                         return new string[] { "TooLong" };
                     } else {
                         return to_return.ToArray();
