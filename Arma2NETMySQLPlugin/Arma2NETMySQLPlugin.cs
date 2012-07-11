@@ -21,7 +21,7 @@ namespace Arma2NETMySQLPlugin
             Startup.StartupConnection();
 
             IList<object> arguments;
-            if (Format.SqfAsCollection(args, out arguments) && arguments.Count >= 2 && arguments[0] != null && arguments[1] != null)
+            if (Format.TrySqfAsCollection(args, out arguments) && arguments.Count >= 2 && arguments[0] != null && arguments[1] != null)
             {
                 string database = arguments[0] as string;
                 string procedure = arguments[1] as string;
@@ -72,7 +72,7 @@ namespace Arma2NETMySQLPlugin
             Startup.StartupConnection();
 
             IList<object> arguments;
-            if (Format.SqfAsCollection(args, out arguments) && arguments.Count == 2 && arguments[0] != null && arguments[1] != null)
+            if (Format.TrySqfAsCollection(args, out arguments) && arguments.Count == 2 && arguments[0] != null && arguments[1] != null)
             {
                 string database = arguments[0] as string;
                 string mysql_command = arguments[1] as string;
