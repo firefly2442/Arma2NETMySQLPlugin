@@ -62,10 +62,10 @@ namespace Arma2NETMySQLPlugin
             }
         }
 
-        public IEnumerable<string[]> RunProcedure(string procedure, string[] parameters, int maxResultSize)
+        public IEnumerable<string[][]> RunProcedure(string procedure, string[] parameters, int maxResultSize)
         {
             //Logger.addMessage(Logger.LogType.Info, "Started RunProcedure");
-            if (connection != null && connection.State == System.Data.ConnectionState.Open)
+            if (connection != null && connection.State == System.Data.ConnectionState.Open && procedure != null)
             {
                 MySqlCommand command = GetCommand(procedure);
 
@@ -91,19 +91,20 @@ namespace Arma2NETMySQLPlugin
             yield break;
         }
 
-        public IEnumerable<string[]> RunCommand(string mysql_command, int maxResultSize)
+        public IEnumerable<string[][]> RunCommand(string mysql_command, int maxResultSize)
         {
             //Logger.addMessage(Logger.LogType.Info, "Started RunCommand");
-            if (connection != null && connection.State == System.Data.ConnectionState.Open)
+            if (connection != null && connection.State == System.Data.ConnectionState.Open && mysql_command != null)
             {
-                MySqlCommand command = new MySqlCommand(mysql_command, connection);
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = mysql_command;
                 yield return RunOnDatabase(command, maxResultSize);
             }
             //Logger.addMessage(Logger.LogType.Info, "yield breaking in RunProcedure");
             yield break;
         }
 
-        private string[] RunOnDatabase(MySqlCommand command, int maxResultSize)
+        private string[][] RunOnDatabase(MySqlCommand command, int maxResultSize)
         {
             MySqlDataReader reader = null;
 
@@ -125,41 +126,57 @@ namespace Arma2NETMySQLPlugin
             {
                 if (mysql_error == false)
                 {
-                    List<string> to_return = new List<string>();
+                    List<List<string>> to_return = new List<List<string>>();
+                    int max_array_rows = 0;
                     while (reader.Read())
                     {
+                        List<string> inner_data = new List<string>();
                         for (int i = 0; i < reader.FieldCount; i++)
                         {
                             string value = reader.GetString(i);
-                            to_return.Add(value);
+                            inner_data.Add(value);
                             //Logger.addMessage(Logger.LogType.Info, "Row value is: " + value);
                         }
+                        to_return.Add(inner_data);
+                        max_array_rows++;
                     }
                     reader.Close();
+
+                    //convert into the array which we'll have to pass back
+                    string[][] string_array = new string[max_array_rows][];
+                    for (int i = 0; i < max_array_rows; i++) {
+                        string_array[i] = to_return[i].ToArray();
+                    }
+
                     /*
                      * callExtension is the method that is used by Arma2NET to pass information between itself and Arma2
                      * callExtension has a size limit for the max amount of data that can be passed:
                      * http://community.bistudio.com/wiki/Extensions#A_few_technical_considerations
-                     * The limit is 4 Kilobytes which corresponds to 4000 characters in C#
+                     * The limit is 4 Kilobytes
                      * One character = one byte
                      * The Wiki notes that this size limit could change through future patches.
+                     * https://dev-heaven.net/issues/25915
                      * 
                      * Arma2NET has a long output addin method that does the following:
                      * "From version 1.5, Arma2NET supports plugins requiring the maximum result size as an argument to the Run method.
                      * You can use this to ensure that a plugin won't return a result that is too long for Arma 2 to handle."
                      * 
+                     * In Arma2NET, 4095 characters is the limit
+                     * The last character is reserved for null
+                     * 
                      */
-                    string total_length = string.Join(",", to_return.ToArray());
-                    if (total_length.Length > maxResultSize)
-                    {
-                        return new string[] { "TooLong" };
+                    string formatted = Arma2Net.Managed.Format.ObjectAsSqf(string_array);
+                    int size = Encoding.UTF8.GetByteCount(formatted.ToCharArray());
+                    //Logger.addMessage(Logger.LogType.Info, "Size length: " + size);
+                    if (size > maxResultSize) {
+                        return new string[][] { new [] {"TooLong"} };
                     } else {
-                        return to_return.ToArray();
+                        return string_array;
                     }
                 }
             }
             //Logger.addMessage(Logger.LogType.Info, "Returning error from RunProcedure");
-            return new string[] { "Error" };
+            return new string[][] { new [] { "Error" } };
         }
 
         private MySqlCommand GetCommand(string procedureName)

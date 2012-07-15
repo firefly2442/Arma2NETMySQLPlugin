@@ -41,7 +41,7 @@ namespace Arma2NETMySQLPlugin
 
                 if (MySQL.dbs.SQLProviderExists(database))
                 {
-                    IEnumerable<string[]> returned = MySQL.dbs.getSQLProvider(database).RunProcedure(procedure, split.ToArray(), maxResultSize);
+                    IEnumerable<string[][]> returned = MySQL.dbs.getSQLProvider(database).RunProcedure(procedure, split.ToArray(), maxResultSize);
                     return Arma2Net.Managed.Format.ObjectAsSqf(returned);
                 }
                 else
@@ -81,7 +81,7 @@ namespace Arma2NETMySQLPlugin
 
                 if (MySQL.dbs.SQLProviderExists(database))
                 {
-                    IEnumerable<string[]> returned = MySQL.dbs.getSQLProvider(database).RunCommand(mysql_command, maxResultSize);
+                    IEnumerable<string[][]> returned = MySQL.dbs.getSQLProvider(database).RunCommand(mysql_command, maxResultSize);
                     return Arma2Net.Managed.Format.ObjectAsSqf(returned);
                 }
                 else
