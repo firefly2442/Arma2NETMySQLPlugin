@@ -17,7 +17,6 @@ namespace Arma2NETMySQLPlugin
         {
             if (started_up == false)
             {
-
                 //Start up logging
                 logger_object = new Logger();
 
@@ -30,7 +29,6 @@ namespace Arma2NETMySQLPlugin
                 //http://stackoverflow.com/questions/64602/what-are-differences-between-assemblyversion-assemblyfileversion-and-assemblyin
                 Logger.addMessage(Logger.LogType.Info, "Version number: " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
 
-                Logger.addMessage(Logger.LogType.Info, "Arma2NET Version: " + Utils.TargetVersion);
                 Logger.addMessage(Logger.LogType.Info, "Compiled against Arma2NET Version: " + Utils.TargetFileVersion);
 
                 //Load in Databases.txt file
