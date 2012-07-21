@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.AddIn;
 using AddInView;
-using Arma2Net.Managed;
+using Arma2Net.AddInProxy;
 
 namespace Arma2NETMySQLPlugin
 {
@@ -29,7 +28,7 @@ namespace Arma2NETMySQLPlugin
                 //http://stackoverflow.com/questions/64602/what-are-differences-between-assemblyversion-assemblyfileversion-and-assemblyin
                 Logger.addMessage(Logger.LogType.Info, "Version number: " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
 
-                Logger.addMessage(Logger.LogType.Info, "Compiled against Arma2NET Version: " + Utils.TargetFileVersion);
+                Logger.addMessage(Logger.LogType.Info, "Compiled against Arma2NET Version: " + Environment.Version);
 
                 //Load in Databases.txt file
                 //This also sets up the SQLProvider associated with the database

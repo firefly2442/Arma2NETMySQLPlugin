@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using MySql.Data.MySqlClient;
+using Arma2Net.AddInProxy;
 
 namespace Arma2NETMySQLPlugin
 {
@@ -165,7 +166,7 @@ namespace Arma2NETMySQLPlugin
                      * The last character is reserved for null
                      * 
                      */
-                    string formatted = Arma2Net.Managed.Format.ObjectAsSqf(string_array);
+                    string formatted = Format.ObjectAsSqf(string_array);
                     int size = Encoding.UTF8.GetByteCount(formatted.ToCharArray());
                     //Logger.addMessage(Logger.LogType.Info, "Size length: " + size);
                     if (size > maxResultSize) {

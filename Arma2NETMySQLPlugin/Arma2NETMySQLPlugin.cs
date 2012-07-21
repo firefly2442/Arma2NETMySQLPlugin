@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
-using System.AddIn;
 using AddInView;
-using Arma2Net.Managed;
+using Arma2Net.AddInProxy;
 
 namespace Arma2NETMySQLPlugin
 {
     //the function name for the plugin (called from Arma side)
     [AddIn("Arma2NETMySQL", Version = "0.1.0.0", Publisher = "firefly2442", Description = "Runs MySQL procedure commands.")]
-    public class Arma2NETMySQLPlugin : Arma2NetLongOutputAddIn
+    public class Arma2NETMySQLPlugin : AddIn
     {
         //This method is called when callExtension is used from SQF:
         //"Arma2Net.Unmanaged" callExtension "Arma2NetMySQL ..."
-        public override string Run(string args, int maxResultSize)
+        public override string Invoke(string args, int maxResultSize)
         {
             //if we haven't setup the database connection and such yet, this will do it
             Startup.StartupConnection();
@@ -42,7 +41,7 @@ namespace Arma2NETMySQLPlugin
                 if (MySQL.dbs.SQLProviderExists(database))
                 {
                     IEnumerable<string[][]> returned = MySQL.dbs.getSQLProvider(database).RunProcedure(procedure, split.ToArray(), maxResultSize);
-                    return Arma2Net.Managed.Format.ObjectAsSqf(returned);
+                    return Format.ObjectAsSqf(returned);
                 }
                 else
                 {
@@ -50,7 +49,7 @@ namespace Arma2NETMySQLPlugin
                 }
 
                 //Logger.addMessage(Logger.LogType.Info, "Returning false object");
-                return Arma2Net.Managed.Format.ObjectAsSqf(false);
+                return Format.ObjectAsSqf(false);
             }
             else
             {
@@ -62,11 +61,11 @@ namespace Arma2NETMySQLPlugin
 
     //the function name for the plugin (called from Arma side)
     [AddIn("Arma2NETMySQLCommand", Version = "0.1.0.0", Publisher = "firefly2442", Description = "Runs raw MySQL commands")]
-    public class Arma2NETMySQLPluginCommand : Arma2NetLongOutputAddIn
+    public class Arma2NETMySQLPluginCommand : AddIn
     {
         //This method is called when callExtension is used from SQF:
         //"Arma2Net.Unmanaged" callExtension "Arma2NetMySQLCommand ..."
-        public override string Run(string args, int maxResultSize)
+        public override string Invoke(string args, int maxResultSize)
         {
             //if we haven't setup the database connection and such yet, this will do it
             Startup.StartupConnection();
@@ -82,7 +81,7 @@ namespace Arma2NETMySQLPlugin
                 if (MySQL.dbs.SQLProviderExists(database))
                 {
                     IEnumerable<string[][]> returned = MySQL.dbs.getSQLProvider(database).RunCommand(mysql_command, maxResultSize);
-                    return Arma2Net.Managed.Format.ObjectAsSqf(returned);
+                    return Format.ObjectAsSqf(returned);
                 }
                 else
                 {
@@ -90,7 +89,7 @@ namespace Arma2NETMySQLPlugin
                 }
 
                 //Logger.addMessage(Logger.LogType.Info, "Returning false object");
-                return Arma2Net.Managed.Format.ObjectAsSqf(false);
+                return Format.ObjectAsSqf(false);
             }
             else
             {

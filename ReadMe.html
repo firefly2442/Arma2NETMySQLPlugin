@@ -119,12 +119,10 @@ To run the application:
 				to create manually.  Note that the call names are different between running stored procedures versus straight queries.</li>
 			</ul>
 	</ol>
-	<li>Run Arma2 and use this for your command line parameters (for the server which connects to the database):
-		<pre>-mod=expansion\beta;expansion\beta\expansion;@CBA;@CBA_A2;@CBA_OA;@Arma2NET -arma2netdev</pre>
-		<p>Alternatively, you can not use the -arma2netdev commandline parameter and just edit one of the settings file.
-		Open up Settings.yaml and set "DisableSandboxing" to true.  Essentially, the reason why all of this is necessary
-		is because only approved "signed" versions of plugins are accepted when the sandbox is active.  This allows third-party
-		plugins to be run.</p>
+	<li>Run Arma2 and add @Arma2NET as a mod.  For example your command line parameters (for the server which connects to the database):
+		<pre>-mod=expansion\beta;expansion\beta\expansion;@Arma2NET</pre>
+		<p>This plugin doesn't require any other third party mods like ACE or CBA.  But, they do have some nice utility functions
+		and features that may be helpful when you make your missions.</p>
 		<p>Arma2 player clients do not need to do any of this.  They will interact with the Arma2 server and through SQF scripting, so you can
 		pass the information from the database back to them or use it however you need.</p>
 	</li>
@@ -139,7 +137,7 @@ To run the application:
 <p>Arma2NETMySQL Plugin uses the callExtension function, however, there are some
 <a href="http://community.bistudio.com/wiki/Extensions#A_few_technical_considerations">technical considerations</a> as part of this.
 </p>
-<p>Returning results has a limit of 4000 characters.  If you try to run a MySQL query that will return a result longer than 4000 characters,
+<p>Returning results has a limit of 4095 characters.  If you try to run a MySQL query that will return a result longer than 4095 characters,
 it will return the string "TooLong".  Then you know you will need to limit the number of results that are returned.  In MySQL,
 you can use <a href="https://dev.mysql.com/doc/refman/5.0/en/select.html">the limit parameter</a>.  This is a limitation of
 Arma2 so don't ask for this to be fixed.</p>
@@ -157,13 +155,16 @@ This will tell you if the plugin is loading appropriately.  If it's not, check y
 These can get very long so scroll all the way to the bottom to see the latest run.  This will tell you if you have an error in
 your SQF scripting code or other such problems.  Note, these path locations are for Windows 7 (and Vista?) and may be different
 for other versions of Windows.</p>
+<p>If you're still having problems, please go back and double check that you did everything correctly.  If you skipped a step
+or got an error and just decided to continue to the next step, nothing will work.</p>
 
 <p>If you found a bug, please create an issue ticket here:
 <a href="https://github.com/firefly2442/Arma2NETMySQLPlugin">Github page</a>.</p>
 <p>There is also <a href="http://forums.bistudio.com/showthread.php?128795-Arma2MySQL">a thread</a>
 on the <a href="http://forums.bistudio.com">BIS forums</a> so if you're stuck, you can ask there.
 The forums are preferred over emailing me because then the question/answer is available to
-future people who have similar problems.</p>
+future people who have similar problems.  If you post any questions anywhere, please post <b>ALL</b>
+log files, otherwise we will have problems helping you.</p>
 
 <a name="changelog"><h2>Changelog</h2></a>
 

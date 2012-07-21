@@ -35,16 +35,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files\Steam\steamapps\common\arma 2 operation arrowhead\@Arma2NET\AddInViews\AddInView.dll</HintPath>
     </Reference>
-    <Reference Include="Arma2Net.Managed, Version=1.7.0.0, Culture=neutral, PublicKeyToken=8762987cc8e6095e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files\Steam\steamapps\common\arma 2 operation arrowhead\@Arma2NET\Arma2Net.Managed.dll</HintPath>
+    <Reference Include="Arma2Net.AddInProxy">
+      <HintPath>..\..\..\..\..\..\Program Files\Steam\steamapps\common\arma 2 operation arrowhead\@Arma2NET\Arma2Net.AddInProxy.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data, Version=6.2.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL Connector Net 6.2.4\Assemblies\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.AddIn" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
