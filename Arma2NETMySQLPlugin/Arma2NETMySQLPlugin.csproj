@@ -31,10 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AddInView, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8762987cc8e6095e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files\Steam\steamapps\common\arma 2 operation arrowhead\@Arma2NET\AddInViews\AddInView.dll</HintPath>
-    </Reference>
     <Reference Include="Arma2Net.AddInProxy">
       <HintPath>..\..\..\..\..\..\Program Files\Steam\steamapps\common\arma 2 operation arrowhead\@Arma2NET\Arma2Net.AddInProxy.dll</HintPath>
     </Reference>
