@@ -59,10 +59,7 @@ namespace Arma2NETMySQLPlugin
 
         public override void Unload()
         {
-            Logger.addMessage(Logger.LogType.Info, "Unloading plugin.");
-            MySQL.dbs.shutdown();
-            Logger.Stop();
-            Startup.started_up = false;
+            Startup.Unload();
         }
     }
 
@@ -107,10 +104,7 @@ namespace Arma2NETMySQLPlugin
 
         public override void Unload()
         {
-            Logger.addMessage(Logger.LogType.Info, "Unloading plugin.");
-            MySQL.dbs.shutdown();
-            Logger.Stop();
-            Startup.started_up = false;
+            Startup.Unload();
         }
     }
 }

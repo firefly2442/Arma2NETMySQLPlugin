@@ -38,5 +38,13 @@ namespace Arma2NETMySQLPlugin
                 started_up = true;
             }
         }
+
+        public static void Unload()
+        {
+            Logger.addMessage(Logger.LogType.Info, "Unloading plugin.");
+            MySQL.dbs.shutdown();
+            Logger.Stop();
+            Startup.started_up = false;
+        }
     }
 }
