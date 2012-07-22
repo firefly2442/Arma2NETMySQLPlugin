@@ -9,8 +9,8 @@ namespace Arma2NETMySQLPlugin
 {
     class Startup
     {
-        private static Logger logger_object = null;
-        private static Boolean started_up = false;
+        public static Logger logger_object = null;
+        public static Boolean started_up = false;
 
         public static void StartupConnection()
         {

@@ -21,8 +21,8 @@ namespace Arma2NETMySQLPlugin
             Error
         }
 
-        public loggerState state = loggerState.Stopped;
-        public loggerState State { get { return state; } }
+        private static loggerState state = loggerState.Stopped;
+        public static loggerState State { get { return state; } }
 
         private static FileStream fs = null;
         private static StreamWriter sw = null;
@@ -51,22 +51,29 @@ namespace Arma2NETMySQLPlugin
 
         public static void addMessage(LogType type, string message)
         {
-            DateTime time = new DateTime();
-            time = DateTime.Now;
-            string towrite = type.ToString() + ": " + time.ToString("HH:mm:ss - ") + message;
-
-            //This locks file writing for a second, this prevents multiple external threads to be writing to the file
-            //using this method at exactly the same time.
-            //http://msdn.microsoft.com/en-us/library/c5kehkcz.aspx
-            //http://www.dotnetperls.com/lock
-            lock (sw)
+            if (State == loggerState.Started)
             {
-                sw.WriteLine(towrite);
-                sw.Flush();
+                DateTime time = new DateTime();
+                time = DateTime.Now;
+                string towrite = type.ToString() + ": " + time.ToString("HH:mm:ss - ") + message;
+
+                //This locks file writing for a second, this prevents multiple external threads to be writing to the file
+                //using this method at exactly the same time.
+                //http://msdn.microsoft.com/en-us/library/c5kehkcz.aspx
+                //http://www.dotnetperls.com/lock
+                lock (sw)
+                {
+                    sw.WriteLine(towrite);
+                    sw.Flush();
+                }
+            }
+            else
+            {
+                Console.WriteLine("ERROR: Tried to add message when logger is down.\n**\t{0}", message);
             }
         }
 
-        public void Stop()
+        public static void Stop()
         {
             if (State == loggerState.Started)
             {
@@ -75,6 +82,7 @@ namespace Arma2NETMySQLPlugin
                     sw.Flush();
                     sw.Close();
                     fs.Close();
+                    state = loggerState.Stopped;
                 }
                 catch (Exception ex)
                 {

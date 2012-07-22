@@ -57,6 +57,14 @@ namespace Arma2NETMySQLPlugin
                 throw new ArgumentException();
             }
         }
+
+        public override void Unload()
+        {
+            Logger.addMessage(Logger.LogType.Info, "Unloading plugin.");
+            MySQL.dbs.shutdown();
+            Logger.Stop();
+            Startup.started_up = false;
+        }
     }
 
     //the function name for the plugin (called from Arma side)
@@ -96,6 +104,14 @@ namespace Arma2NETMySQLPlugin
                 Logger.addMessage(Logger.LogType.Error, "The number and/or format of the arguments passed in doesn't match.");
                 throw new ArgumentException();
             }
+        }
+
+        public override void Unload()
+        {
+            Logger.addMessage(Logger.LogType.Info, "Unloading plugin.");
+            MySQL.dbs.shutdown();
+            Logger.Stop();
+            Startup.started_up = false;
         }
     }
 }
