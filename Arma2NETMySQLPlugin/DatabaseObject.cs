@@ -3,32 +3,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+
 namespace Arma2NETMySQLPlugin
 {
     class DatabaseObject
     {
+        public string type;
         public string databasename;
         public string ipaddress;
         public string username;
         public string password;
         public string port;
 
-        public MySQL mysql_connection;
+        public SQL sql_connection;
 
-        public DatabaseObject(string name, string ip, string p, string user, string pass)
+        public DatabaseObject(params string[] values)
         {
             //Constructor
-            databasename = name;
-            ipaddress = ip;
-            port = p;
-            username = user;
-            password = pass;
+            type = values[0];
+            databasename = values[1];
+            if (values.Length == 6) {
+                ipaddress = values[2];
+                port = values[3];
+                username = values[4];
+                password = values[5];
+            }
 
-            mysql_connection = new MySQL();
-            mysql_connection.OpenConnection(getFormattedConnectionString());
+            if (type == "mysql")
+            {
+                sql_connection = new MySQL();
+                sql_connection.OpenConnection(getMySQLFormattedConnectionString());
+            }
+            else if (type == "sqlite")
+            {
+                sql_connection = new SQLite();
+                sql_connection.OpenConnection(databasename);
+            }
+            else
+            {
+                Logger.addMessage(Logger.LogType.Error, "Database type does not match one of the supported types.");
+            }
         }
 
-        private string getFormattedConnectionString()
+        private string getMySQLFormattedConnectionString()
         {
             //With new (6.5.4) versions of the MySQL Connector, it was throwing an error when running the stored procedures:
             //Unable to retrieve stored procedure metadata for routine.  Either grant  SELECT privilege to mysql.proc for this user or use "check parameters=false" with  your connection string.

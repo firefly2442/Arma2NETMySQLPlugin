@@ -34,7 +34,7 @@ namespace Arma2NETMySQLPlugin
                 //Load in Databases.txt file
                 //This also sets up the SQLProvider associated with the database
                 Logger.addMessage(Logger.LogType.Info, "Loading databases...");
-                MySQL.dbs = new Databases();
+                SQL.dbs = new Databases();
 
                 //set mutex so we know we've started everything up
                 started_up = true;
@@ -44,7 +44,7 @@ namespace Arma2NETMySQLPlugin
         public static void Unload()
         {
             Logger.addMessage(Logger.LogType.Info, "Unloading plugin.");
-            MySQL.dbs.shutdown();
+            SQL.dbs.shutdown();
             Logger.Stop();
             Startup.started_up = false;
         }

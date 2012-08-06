@@ -37,9 +37,9 @@ namespace Arma2NETMySQLPlugin
 
                 Logger.addMessage(Logger.LogType.Info, "Received - Database: " + database + " Procedure: " + procedure + " Parameters: " + parameters.ToString());
 
-                if (MySQL.dbs.SQLProviderExists(database))
+                if (SQL.dbs.SQLProviderExists(database))
                 {
-                    IEnumerable<string[][]> returned = MySQL.dbs.getSQLProvider(database).RunProcedure(procedure, split.ToArray(), maxResultSize);
+                    IEnumerable<string[][]> returned = SQL.dbs.getSQLProvider(database).RunProcedure(procedure, split.ToArray(), maxResultSize);
                     return Format.ObjectAsSqf(returned);
                 }
                 else
@@ -82,9 +82,9 @@ namespace Arma2NETMySQLPlugin
 
                 Logger.addMessage(Logger.LogType.Info, "Received - Database: " + database + " MySQL Command: " + mysql_command.ToString());
 
-                if (MySQL.dbs.SQLProviderExists(database))
+                if (SQL.dbs.SQLProviderExists(database))
                 {
-                    IEnumerable<string[][]> returned = MySQL.dbs.getSQLProvider(database).RunCommand(mysql_command, maxResultSize);
+                    IEnumerable<string[][]> returned = SQL.dbs.getSQLProvider(database).RunCommand(mysql_command, maxResultSize);
                     return Format.ObjectAsSqf(returned);
                 }
                 else

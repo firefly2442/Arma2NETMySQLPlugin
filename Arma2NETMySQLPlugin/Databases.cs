@@ -6,7 +6,7 @@ using System.IO; //for reading file
 
 namespace Arma2NETMySQLPlugin
 {
-    class Databases
+    public class Databases
     {
         private List<DatabaseObject> databaseList = new List<DatabaseObject>();
 
@@ -30,10 +30,18 @@ namespace Arma2NETMySQLPlugin
                 {
                     //Separate out the information
                     string[] split = line.Split(',');
-                    if (split.Length == 5)
+                    if (split.Length == 6)
                     {
-                        Logger.addMessage(Logger.LogType.Info, "Database: " + split[0] + " IPAddress: " + split[1] + " Port: " + split[2] + " Username: " + split[3] + " Password: NotShownForSecurityReasons");
-                        DatabaseObject temp = new DatabaseObject(split[0], split[1], split[2], split[3], split[4]);
+                        split[0] = split[0].ToLower();
+                        Logger.addMessage(Logger.LogType.Info, "Type: " + split[0] + " Database: " + split[1] + " IPAddress: " + split[2] + " Port: " + split[3] + " Username: " + split[4] + " Password: NotShownForSecurityReasons");
+                        DatabaseObject temp = new DatabaseObject(new string[6] {split[0], split[1], split[2], split[3], split[4], split[5]});
+                        databaseList.Add(temp);
+                    }
+                    else if (split.Length == 2)
+                    {
+                        split[0] = split[0].ToLower();
+                        Logger.addMessage(Logger.LogType.Info, "Type: " + split[0] + " Database: " + split[1]);
+                        DatabaseObject temp = new DatabaseObject(new string[2] {split[0], split[1]});
                         databaseList.Add(temp);
                     }
                     else if (line.Contains(","))
@@ -55,7 +63,7 @@ namespace Arma2NETMySQLPlugin
         {
             for (int i = 0; i < databaseList.Count(); i++)
             {
-                databaseList[i].mysql_connection.CloseConnection();
+                databaseList[i].sql_connection.CloseConnection();
             }
         }
 
@@ -71,13 +79,13 @@ namespace Arma2NETMySQLPlugin
             return false;
         }
 
-        public MySQL getSQLProvider(string dbname)
+        public SQL getSQLProvider(string dbname)
         {
             for (int i = 0; i < databaseList.Count(); i++)
             {
                 if (databaseList[i].databasename == dbname)
                 {
-                    return databaseList[i].mysql_connection;
+                    return databaseList[i].sql_connection;
                 }
             }
             return null;
