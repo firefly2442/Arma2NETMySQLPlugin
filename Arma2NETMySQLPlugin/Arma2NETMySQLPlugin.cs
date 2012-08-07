@@ -64,7 +64,7 @@ namespace Arma2NETMySQLPlugin
     }
 
     //the function name for the plugin (called from Arma side)
-    [AddIn("Arma2NETMySQLCommand", Version = "0.1.0.0", Publisher = "firefly2442", Description = "Runs raw MySQL commands")]
+    [AddIn("Arma2NETMySQLCommand", Version = "0.1.0.0", Publisher = "firefly2442", Description = "Runs raw MySQL/SQLite commands")]
     public class Arma2NETMySQLPluginCommand : AddIn
     {
         //This method is called when callExtension is used from SQF:
