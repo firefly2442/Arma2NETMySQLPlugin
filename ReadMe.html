@@ -32,9 +32,10 @@
 	<li><a href="https://github.com/firefly2442/Arma2NetMySQLPlugin-ExampleMission">Arma2NETMySQL Plugin Example Mission</a></li>
 </ul>
 
-<p>This program acts as an intermediary between Arma2 and a MySQL database.  It currently only supports MySQL.  It uses the
+<p>This program acts as an intermediary between Arma2 and a MySQL or SQLite database.  It uses the
 <a href="https://dev-heaven.net/projects/a2n">Arma2NET</a> wrapper system.  It is written in C#.  The program has to be run on the
-same system as your Arma2 server, however, the MySQL database can be either local or remote.</p>
+same system as your Arma2 server, however, the MySQL database can be either local or remote.  The SQLite database runs on the 
+local machine.</p>
 
 <p>History:</p>
 <p>This program has had a long history.  Initially, the program used JayArma2Lib because DLL injections were the only way to
@@ -61,9 +62,15 @@ it for saving information.
 To run the application:
 <ul>
 	<li>You need a Windows server. (see known issues)</li>
-	<li><a href="http://www.mysql.org" target="_blank">A MySQL server and database setup</a></li>
+	<li>One of the following:</li>
+	<ul>
+		<li><a href="http://www.mysql.org" target="_blank">A MySQL server and database setup</a></li>
+		<li><a href="" target="_blank">A SQLite database setup</a></li>
+	</ul>
 	<li><a href="http://www.mysql.com/downloads/connector/net/">MySQL Connector for .NET</a> The program has been
 	successfully tested with version 6.5.4</li>
+	<li><a href="http://system.data.sqlite.org/index.html/doc/trunk/www/downloads.wiki">Precompiled Binaries of SQLite
+	for 32-bit Windows (.NET Framework 4.0)</a> The program has been successfully tested with version 1.0.81.0</li>
 	<li><a href="http://www.microsoft.com/download/en/details.aspx?id=24872">Microsoft .NET Framework 4 Client Profile</a></li>
 	<li>Arma2OA Beta version 87640 or later (full client or dedicated server)</li>
 		<ul>
@@ -121,6 +128,18 @@ To run the application:
 				to create manually.  Note that the call names are different between running stored procedures versus straight queries.</li>
 			</ul>
 	</ol>
+	<li>There is one way to run SQLite queries with this plugin.</li>
+	<ol>
+		<li>Straight queries:</li>
+		<ul>
+				<li>This is similar to what you're probably used to.  Commands like:
+				<pre>SELECT * FROM table WHERE name = 'user'</pre></li>
+				<li>Your SQF code will look something like this:
+				<pre>_selectTest = "Arma2Net.Unmanaged" callExtension "Arma2NETMySQLCommand ['weaponslite', 'SELECT * FROM users LIMIT 3']";</pre>
+				In this example, "weaponslite" is the database name.  The next portion is the entire SQLite command which you will need
+				to create manually.</li>
+			</ul>
+	</ol>
 	<li>Run Arma2 and add @Arma2NET as a mod.  For example your command line parameters (for the server which connects to the database):
 		<pre>-mod=expansion\beta;expansion\beta\expansion;@Arma2NET</pre>
 		<p>This plugin doesn't require any other third party mods like ACE or CBA.  But, they do have some nice utility functions
@@ -139,14 +158,15 @@ To run the application:
 <p>Arma2NETMySQL Plugin uses the callExtension function, however, there are some
 <a href="http://community.bistudio.com/wiki/Extensions#A_few_technical_considerations">technical considerations</a> as part of this.
 </p>
-<p>Returning results has a limit of 4095 characters.  If you try to run a MySQL query that will return a result longer than 4095 characters,
+<p>Returning results has a limit of 4095 characters.  If you try to run a query that will return a result longer than 4095 characters,
 it will return the string "TooLong".  Then you know you will need to limit the number of results that are returned.  In MySQL,
-you can use <a href="https://dev.mysql.com/doc/refman/5.0/en/select.html">the limit parameter</a>.  This is a limitation of
+you can use <a href="https://dev.mysql.com/doc/refman/5.0/en/select.html">the limit parameter</a>, or in SQLite,
+<a href="https://www.sqlite.org/lang_select.html">the limit parameter</a>.  This is a limitation of
 Arma2 so don't ask for this to be fixed.</p>
 
 <a name="troubleshooting"><h2>Troubleshooting</h2></a>
 
-<p>If you are getting a returned result of "Error" in Arma2, this means there's something wrong with your MySQL query.  Check
+<p>If you are getting a returned result of "Error" in Arma2, this means there's something wrong with your query.  Check
 the logs to track down the problem.</p>
 <p>Stuck?  First check the "logs" folder.  The plugin creates a new log file each time it's run.  Go into your root Arma2 folder where
 the executable is, then find the "logs" folder.  If there are errors or things, they will show up there.  If you don't have
