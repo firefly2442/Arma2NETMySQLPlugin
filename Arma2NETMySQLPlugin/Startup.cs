@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Arma2Net.AddInProxy;
+using System.IO;
 
 namespace Arma2NETMySQLPlugin
 {
@@ -15,6 +16,13 @@ namespace Arma2NETMySQLPlugin
         {
             if (started_up == false)
             {
+                //create appdata folder if it doesn't already exist
+                var appDataLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Arma2MySQL");
+                //check to see if the Arma2MySQL folder exists, if not create it
+                if (!System.IO.Directory.Exists(appDataLocation)) {
+                    System.IO.Directory.CreateDirectory(appDataLocation);
+                }
+
                 //Start up logging
                 logger_object = new Logger();
 

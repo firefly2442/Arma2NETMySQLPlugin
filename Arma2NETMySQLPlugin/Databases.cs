@@ -16,12 +16,13 @@ namespace Arma2NETMySQLPlugin
 
             //Load the database names, ip, port, usernames, passwords, and so on from file
             string line;
-            if (!File.Exists("Databases.txt"))
+            var databasesFileLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Arma2MySQL/Databases.txt");
+            if (!File.Exists(databasesFileLocation))
             {
                 Logger.addMessage(Logger.LogType.Error, "Unable to find the Databases.txt file, are you sure it's there?");
             }
 
-            StreamReader sr = File.OpenText("Databases.txt");
+            StreamReader sr = File.OpenText(databasesFileLocation);
             line = sr.ReadLine();
             while (line != null)
             {

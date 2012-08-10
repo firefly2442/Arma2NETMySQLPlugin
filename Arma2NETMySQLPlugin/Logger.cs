@@ -33,16 +33,16 @@ namespace Arma2NETMySQLPlugin
             if (State == loggerState.Stopped)
             {
                 //check to see if the logs folder exists, if not create it
-                if (!System.IO.Directory.Exists("logs"))
-                {
-                    System.IO.Directory.CreateDirectory("logs");
+                var logDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Arma2MySQL/logs/");
+                if (!System.IO.Directory.Exists(logDir)) {
+                    System.IO.Directory.CreateDirectory(logDir);
                 }
 
                 //Setup file streams
                 DateTime dateValue = new DateTime();
                 dateValue = DateTime.Now;
-                string relativepath = Path.Combine("logs", dateValue.ToString("MM-dd-yyyy_HH-mm-ss") + ".log");
-                fs = new FileStream(relativepath, FileMode.Append);
+                string fullpath = Path.Combine(logDir, dateValue.ToString("MM-dd-yyyy_HH-mm-ss") + ".log");
+                fs = new FileStream(fullpath, FileMode.Append);
                 sw = new StreamWriter(fs);
 
                 state = loggerState.Started;
