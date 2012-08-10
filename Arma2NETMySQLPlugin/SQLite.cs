@@ -85,12 +85,10 @@ namespace Arma2NETMySQLPlugin
             string[][] string_array = new string[dt.Rows.Count][];
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                Logger.addMessage(Logger.LogType.Info, "Row value is: " + dt.Rows[i].ToString());
-                for (int j = 0; j < dt.Columns.Count; j++)
-                {
-                    string_array[i][j] = dt.Rows[i][j].ToString();
-                }
+                DataRow row = dt.Rows[i];
+                string_array[i] = row.ItemArray.Select(j => j.ToString()).ToArray();
             }
+
 
             if (validLength(string_array, maxResultSize) == false)
             {
