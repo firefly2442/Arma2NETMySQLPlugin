@@ -40,6 +40,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.81.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files\System.Data.SQLite\2010\bin\System.Data.SQLite.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,11 +52,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arma2NETMySQLPlugin.cs" />
+    <Compile Include="SQLite.cs" />
+    <Compile Include="MySQL.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="DatabaseObject.cs" />
     <Compile Include="Databases.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="MySQL.cs" />
+    <Compile Include="SQL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

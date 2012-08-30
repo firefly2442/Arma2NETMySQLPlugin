@@ -37,9 +37,9 @@ namespace Arma2NETMySQLPlugin
 
                 Logger.addMessage(Logger.LogType.Info, "Received - Database: " + database + " Procedure: " + procedure + " Parameters: " + parameters.ToString());
 
-                if (MySQL.dbs.SQLProviderExists(database))
+                if (SQL.dbs.SQLProviderExists(database))
                 {
-                    IEnumerable<string[][]> returned = MySQL.dbs.getSQLProvider(database).RunProcedure(procedure, split.ToArray(), maxResultSize);
+                    IEnumerable<string[][]> returned = SQL.dbs.getSQLProvider(database).RunProcedure(procedure, split.ToArray(), maxResultSize);
                     return Format.ObjectAsSqf(returned);
                 }
                 else
@@ -64,7 +64,7 @@ namespace Arma2NETMySQLPlugin
     }
 
     //the function name for the plugin (called from Arma side)
-    [AddIn("Arma2NETMySQLCommand", Version = "0.1.0.0", Publisher = "firefly2442", Description = "Runs raw MySQL commands")]
+    [AddIn("Arma2NETMySQLCommand", Version = "0.1.0.0", Publisher = "firefly2442", Description = "Runs raw MySQL/SQLite commands")]
     public class Arma2NETMySQLPluginCommand : AddIn
     {
         //This method is called when callExtension is used from SQF:
@@ -82,9 +82,9 @@ namespace Arma2NETMySQLPlugin
 
                 Logger.addMessage(Logger.LogType.Info, "Received - Database: " + database + " MySQL Command: " + mysql_command.ToString());
 
-                if (MySQL.dbs.SQLProviderExists(database))
+                if (SQL.dbs.SQLProviderExists(database))
                 {
-                    IEnumerable<string[][]> returned = MySQL.dbs.getSQLProvider(database).RunCommand(mysql_command, maxResultSize);
+                    IEnumerable<string[][]> returned = SQL.dbs.getSQLProvider(database).RunCommand(mysql_command, maxResultSize);
                     return Format.ObjectAsSqf(returned);
                 }
                 else

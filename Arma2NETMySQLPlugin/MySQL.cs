@@ -2,25 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using MySql.Data.MySqlClient;
-using Arma2Net.AddInProxy;
+using System.Threading;
 
 namespace Arma2NETMySQLPlugin
 {
-    class MySQL
+    public class MySQL : SQL
     {
-        private object getCommandSync = new object();
         private MySqlConnection connection;
-
-        public static Databases dbs = null;
+        private object getCommandSync = new object();
 
         public MySQL()
         {
-            //constructor
+            // Default constructor for the derived class
         }
 
-        public void OpenConnection(string connectionString)
+        public override void OpenConnection(string connectionString)
         {
             // if there is no connection
             if (connection == null)
@@ -43,17 +40,17 @@ namespace Arma2NETMySQLPlugin
                 }
                 catch (Exception ex)
                 {
-                    Logger.addMessage(Logger.LogType.Info, "Unable to open connection to database, trying again in 10 seconds." + ex.ToString());
+                    Logger.addMessage(Logger.LogType.Info, "Unable to open connection to MySQL database, trying again in 10 seconds." + ex.ToString());
                     Thread.Sleep(10000);
                 }
             }
         }
 
-        public void CloseConnection()
+        public override void CloseConnection()
         {
             if (connection != null)
             {
-                while (connection.State == System.Data.ConnectionState.Executing || connection.State == System.Data.ConnectionState.Fetching) ;
+                while (connection.State == System.Data.ConnectionState.Executing || connection.State == System.Data.ConnectionState.Fetching);
 
                 if (connection.State != System.Data.ConnectionState.Closed)
                 {
@@ -63,7 +60,23 @@ namespace Arma2NETMySQLPlugin
             }
         }
 
-        public IEnumerable<string[][]> RunProcedure(string procedure, string[] parameters, int maxResultSize)
+        private MySqlCommand GetCommand(string procedureName)
+        {
+            MySqlCommand cmd = null;
+            // only one request at a time.
+            lock (getCommandSync)
+            {
+                // create the command
+                cmd = new MySqlCommand();
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Connection = connection;
+                cmd.CommandText = procedureName;
+                cmd.Prepare();
+            }
+            return cmd;
+        }
+
+        public override IEnumerable<string[][]> RunProcedure(string procedure, string[] parameters, int maxResultSize)
         {
             //Logger.addMessage(Logger.LogType.Info, "Started RunProcedure");
             if (connection != null && connection.State == System.Data.ConnectionState.Open && procedure != null)
@@ -92,7 +105,7 @@ namespace Arma2NETMySQLPlugin
             yield break;
         }
 
-        public IEnumerable<string[][]> RunCommand(string mysql_command, int maxResultSize)
+        public override IEnumerable<string[][]> RunCommand(string mysql_command, int maxResultSize)
         {
             //Logger.addMessage(Logger.LogType.Info, "Started RunCommand");
             if (connection != null && connection.State == System.Data.ConnectionState.Open && mysql_command != null)
@@ -145,55 +158,23 @@ namespace Arma2NETMySQLPlugin
 
                     //convert into the array which we'll have to pass back
                     string[][] string_array = new string[max_array_rows][];
-                    for (int i = 0; i < max_array_rows; i++) {
+                    for (int i = 0; i < max_array_rows; i++)
+                    {
                         string_array[i] = to_return[i].ToArray();
                     }
 
-                    /*
-                     * callExtension is the method that is used by Arma2NET to pass information between itself and Arma2
-                     * callExtension has a size limit for the max amount of data that can be passed:
-                     * http://community.bistudio.com/wiki/Extensions#A_few_technical_considerations
-                     * The limit is 4 Kilobytes
-                     * One character = one byte
-                     * The Wiki notes that this size limit could change through future patches.
-                     * https://dev-heaven.net/issues/25915
-                     * 
-                     * Arma2NET has a long output addin method that does the following:
-                     * "From version 1.5, Arma2NET supports plugins requiring the maximum result size as an argument to the Run method.
-                     * You can use this to ensure that a plugin won't return a result that is too long for Arma 2 to handle."
-                     * 
-                     * In Arma2NET, 4095 characters is the limit
-                     * The last character is reserved for null
-                     * 
-                     */
-                    string formatted = Format.ObjectAsSqf(string_array);
-                    int size = Encoding.UTF8.GetByteCount(formatted.ToCharArray());
-                    //Logger.addMessage(Logger.LogType.Info, "Size length: " + size);
-                    if (size > maxResultSize) {
-                        return new string[][] { new [] {"TooLong"} };
-                    } else {
+                    if (validLength(string_array, maxResultSize) == false)
+                    {
+                        return new string[][] { new[] { "TooLong" } };
+                    }
+                    else
+                    {
                         return string_array;
                     }
                 }
             }
             //Logger.addMessage(Logger.LogType.Info, "Returning error from RunProcedure");
-            return new string[][] { new [] { "Error" } };
-        }
-
-        private MySqlCommand GetCommand(string procedureName)
-        {
-            MySqlCommand cmd = null;
-            // only one request at a time.
-            lock (getCommandSync)
-            {
-                // create the command
-                cmd = new MySqlCommand();
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Connection = connection;
-                cmd.CommandText = procedureName;
-                cmd.Prepare();
-            }
-            return cmd;
+            return new string[][] { new[] { "Error" } };
         }
     }
 }
