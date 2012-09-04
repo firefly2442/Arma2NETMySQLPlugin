@@ -11,6 +11,9 @@ namespace Arma2NETMySQLPlugin
     {
         private MySqlConnection connection;
         private object getCommandSync = new object();
+        private System.Threading.Thread staleConnectionThread = null;
+        private DateTime lastQuery = new DateTime();
+        private String connectString = null;
 
         public MySQL()
         {
@@ -32,10 +35,27 @@ namespace Arma2NETMySQLPlugin
                 connection = new MySqlConnection(connectionString);
             }
 
+            //save the connection string, we'll need this if the check thread ever closes down the connection
+            connectString = connectionString;
+
+            //update the last time a query has been run
+            lastQuery = DateTime.Now;
+
+            //start up thread that checks to see how long we've gone since running a command
+            //we run into problems if the MySQL connection is kept open for significantly long periods of time
+            if (staleConnectionThread == null) {
+                staleConnectionThread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(checkConnectionThread));
+                staleConnectionThread.Name = "staleConnectionThread";
+                staleConnectionThread.Start();
+            } else if (staleConnectionThread.ThreadState != System.Threading.ThreadState.Running) {
+                staleConnectionThread.Start();
+            }
+
             while (connection.State != System.Data.ConnectionState.Open)
             {
                 try
                 {
+                    //Logger.addMessage(Logger.LogType.Info, "Opening MySQL connection.");
                     connection.Open();
                 }
                 catch (Exception ex)
@@ -60,6 +80,32 @@ namespace Arma2NETMySQLPlugin
             }
         }
 
+        private void checkConnectionThread(object obj)
+        {
+            //This thread runs every 5 minutes and checks to see when the last time we ran a query
+            //If it's been over 30 minutes, we close down the MySQL connection
+            while (true)
+            {
+                if (connection != null && connection.State == System.Data.ConnectionState.Open)
+                {
+                    TimeSpan ts = DateTime.Now - lastQuery;
+                    if (ts.Minutes > 30) {
+                        //over 30 minutes, close it down
+                        Logger.addMessage(Logger.LogType.Info, "30 minutes of inactivity have passed.  Closing down MySQL connection.");
+                        CloseConnection();
+                        break;
+                    }
+                }
+                //http://www.dotnetperls.com/sleep
+                //TODO: according to the above link, sleep does not use CPU cycles
+                //we need to make sure this is not significantly eating into CPU resources!
+                Thread.Sleep((60 * 5) * 1000);
+            }
+            //Logger.addMessage(Logger.LogType.Info, "checkConnectionThread closing down.");
+            //threads cannot be started up again, so we null this out, it will be opened back up later
+            staleConnectionThread = null;
+        }
+
         private MySqlCommand GetCommand(string procedureName)
         {
             MySqlCommand cmd = null;
@@ -78,6 +124,10 @@ namespace Arma2NETMySQLPlugin
 
         public override IEnumerable<string[][]> RunProcedure(string procedure, string[] parameters, int maxResultSize)
         {
+            if (connection == null) {
+                OpenConnection(connectString);
+            }
+
             //Logger.addMessage(Logger.LogType.Info, "Started RunProcedure");
             if (connection != null && connection.State == System.Data.ConnectionState.Open && procedure != null)
             {
@@ -107,6 +157,10 @@ namespace Arma2NETMySQLPlugin
 
         public override IEnumerable<string[][]> RunCommand(string mysql_command, int maxResultSize)
         {
+            if (connection == null) {
+                OpenConnection(connectString);
+            }
+
             //Logger.addMessage(Logger.LogType.Info, "Started RunCommand");
             if (connection != null && connection.State == System.Data.ConnectionState.Open && mysql_command != null)
             {
@@ -121,6 +175,9 @@ namespace Arma2NETMySQLPlugin
         private string[][] RunOnDatabase(MySqlCommand command, int maxResultSize)
         {
             MySqlDataReader reader = null;
+
+            //update the last time a query has been run
+            lastQuery = DateTime.Now;
 
             Boolean mysql_error = false;
             try
