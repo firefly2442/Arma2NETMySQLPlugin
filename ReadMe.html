@@ -180,7 +180,7 @@ structure should match the following (note that you will need to create these fo
 <p>Arma2NETMySQL Plugin uses the callExtension function, however, there are some
 <a href="http://community.bistudio.com/wiki/Extensions#A_few_technical_considerations">technical considerations</a> as part of this.
 </p>
-<p>Returning results has a limit of 4095 characters.  If you try to run a query that will return a result longer than 4095 characters,
+<p>Returning results in Arma 2 beta 97299 has a limit of 16384 (16 KB) characters.  If you try to run a query that will return a result longer than 16384 characters,
 it will return the string "TooLong".  Then you know you will need to limit the number of results that are returned.  In MySQL,
 you can use <a href="https://dev.mysql.com/doc/refman/5.0/en/select.html">the limit parameter</a>, or in SQLite,
 <a href="https://www.sqlite.org/lang_select.html">the limit parameter</a>.  This is a limitation of
