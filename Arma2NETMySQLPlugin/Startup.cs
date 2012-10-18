@@ -37,7 +37,8 @@ namespace Arma2NETMySQLPlugin
 
                 //Utils.FileVersion returns the current version that is running
                 //Utils.Version returns the API version, when this changes, all plugins need to be recompiled
-                Logger.addMessage(Logger.LogType.Info, "Compiled against Arma2NET Version: " + Utils.FileVersion);
+                //This version call doesn't always seem to play nicely (it causes errors where it can't find the managed.dll)
+                //Logger.addMessage(Logger.LogType.Info, "Compiled against Arma2NET Version: " + Utils.FileVersion);
 
                 //Load in Databases.txt file
                 //This also sets up the SQLProvider associated with the database
