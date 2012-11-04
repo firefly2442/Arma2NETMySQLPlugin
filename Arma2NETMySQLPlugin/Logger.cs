@@ -27,15 +27,26 @@ namespace Arma2NETMySQLPlugin
         private static FileStream fs = null;
         private static StreamWriter sw = null;
 
+        private static string logDir = null;
+
         public Logger()
         {
             //Constructor
             if (State == loggerState.Stopped)
             {
                 //check to see if the logs folder exists, if not create it
-                var logDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Arma2MySQL/logs/");
-                if (!System.IO.Directory.Exists(logDir)) {
-                    System.IO.Directory.CreateDirectory(logDir);
+                //check the Arma2 root directory first
+                if (System.IO.Directory.Exists("logs"))
+                {
+                    logDir = Path.GetFullPath("logs/");
+                }
+                else
+                {
+                    logDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Arma2MySQL/logs/");
+                    if (!System.IO.Directory.Exists(logDir))
+                    {
+                        System.IO.Directory.CreateDirectory(logDir);
+                    }
                 }
 
                 //Setup file streams
@@ -47,6 +58,11 @@ namespace Arma2NETMySQLPlugin
 
                 state = loggerState.Started;
             }
+        }
+
+        public static string getLogDir()
+        {
+            return logDir;
         }
 
         public static void addMessage(LogType type, string message)

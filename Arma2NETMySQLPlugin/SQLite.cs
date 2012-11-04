@@ -11,15 +11,25 @@ namespace Arma2NETMySQLPlugin
     public class SQLite : SQL
     {
         private SQLiteConnection sqlite_connection;
-        private string sqliteDatabaseLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Arma2MySQL/sqlite/");
+        private string sqliteDatabaseLocation = null;
 
         public SQLite()
         {
             // Default constructor for the derived class
 
             //check to see if the sqlite folder exists, if not create it
-            if (!System.IO.Directory.Exists(sqliteDatabaseLocation)) {
-                System.IO.Directory.CreateDirectory(sqliteDatabaseLocation);
+            //check the Arma2 root directory first
+            if (System.IO.Directory.Exists("sqlite"))
+            {
+                sqliteDatabaseLocation = Path.GetFullPath("sqlite/");
+            }
+            else
+            {
+                sqliteDatabaseLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Arma2MySQL/sqlite/");
+                if (!System.IO.Directory.Exists(sqliteDatabaseLocation))
+                {
+                    System.IO.Directory.CreateDirectory(sqliteDatabaseLocation);
+                }
             }
         }
 
@@ -30,6 +40,7 @@ namespace Arma2NETMySQLPlugin
                 // if there is no connection
                 if (sqlite_connection == null)
                 {
+                    Logger.addMessage(Logger.LogType.Info, "SQLite folder location: " + sqliteDatabaseLocation);
                     sqlite_connection = new SQLiteConnection("Data Source=" + sqliteDatabaseLocation + databasename + ".sqlite");
                 }
 

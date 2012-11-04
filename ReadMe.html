@@ -82,13 +82,26 @@ To run the application:
 
 <a name="howto"><h2>How To Use Arma2NETMySQL</h2></a>
 
-<p>Arma2NETMySQL keeps all files, folders, and sqlite databases that it needs in one location in appdata.  The file
-structure should match the following (note that you will need to create these folders if they don't exist):</p>
+<p>Arma2NETMySQL looks two places for the relevant files and folders.  First, it checks the Arma2 root directory.  If it can't find
+them there, it looks in the AppData folder.  I would recommend using the AppData location is possible.  This makes future upgrades
+and changes easier to manage.  However, some people on limited rental servers may need to put them in the root Arma2 folder.
+Make sure the file/folder structure matches one of these:</p>
 
-<pre>C:\Users\Yourname\AppData\Local\Arma2MySQL\</pre>
-<pre>C:\Users\Yourname\AppData\Local\Arma2MySQL\Databases.txt</pre>
-<pre>C:\Users\Yourname\AppData\Local\Arma2MySQL\sqlite\</pre>
-<pre>C:\Users\Yourname\AppData\Local\Arma2MySQL\logs\</pre>
+<ul>
+	<li>
+		<pre>This is just an example location, you'll have to figure out where your Arma2 folder is.</pre>
+		<pre>E:\Program Files\Steam\steamapps\common\arma 2 operation arrowhead\</pre>
+		<pre>E:\Program Files\Steam\steamapps\common\arma 2 operation arrowhead\Databases.txt</pre>
+		<pre>E:\Program Files\Steam\steamapps\common\arma 2 operation arrowhead\sqlite\</pre>
+		<pre>E:\Program Files\Steam\steamapps\common\arma 2 operation arrowhead\logs\</pre>
+	</li>
+	<li>
+		<pre>C:\Users\Yourname\AppData\Local\Arma2MySQL\</pre>
+		<pre>C:\Users\Yourname\AppData\Local\Arma2MySQL\Databases.txt</pre>
+		<pre>C:\Users\Yourname\AppData\Local\Arma2MySQL\sqlite\</pre>
+		<pre>C:\Users\Yourname\AppData\Local\Arma2MySQL\logs\</pre>
+	</li>
+</ul>
 
 <p>This location is for Windows 7/Vista, if you're running an older version, this location will probably be different.</p>
 
@@ -102,9 +115,7 @@ structure should match the following (note that you will need to create these fo
 			We will not be responsible if something gets deleted!  Please note that there
 			are no checks for <a href="https://en.wikipedia.org/wiki/SQL_injection">SQL injection</a> attacks so be extremely
 			careful about how you allow users to input information that will run against the database.</li>
-			<li>Put the Databases.txt file in the appdata Arma2MySQL folder:
-			<pre>C:\Users\Yourname\AppData\Local\Arma2MySQL\Databases.txt</pre>
-			</li>
+			<li>Put the Databases.txt file in the appropriate location (see above notes).</li>
 		</ul>
 	<li>There are two ways to run MySQL queries with this plugin.  One is using MySQL stored procedures and the other
 	is just to use straight queries.</li>
@@ -144,8 +155,7 @@ structure should match the following (note that you will need to create these fo
 	<ol>
 		<li>Setup database:</li>
 			<ul>
-				<li>Databases need to be in your appdata sqlite folder:</li>
-				<pre>C:\Users\Yourname\AppData\Local\Arma2MySQL\sqlite\</pre>
+				<li>Databases need to be in your root Arma2 folder or the appdata sqlite folder (see above notes).</li>
 				<li>And they need to have the following filename ending:</li>
 				<pre>.sqlite</pre>
 				<li>So, for example you might have:</li>

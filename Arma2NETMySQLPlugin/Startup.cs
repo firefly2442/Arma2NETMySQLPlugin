@@ -25,6 +25,7 @@ namespace Arma2NETMySQLPlugin
 
                 //Start up logging
                 logger_object = new Logger();
+                Logger.addMessage(Logger.LogType.Info, "Logging started in directory: " + Logger.getLogDir());
 
                 Logger.addMessage(Logger.LogType.Info, "Arma2NETMySQL Plugin Started.");
 
