@@ -99,7 +99,9 @@ structure should match the following (note that you will need to create these fo
 			Arma2NETMySQL does not limit the actions that can be performed on the database.  For security reasons, create a username that is locked down
 			and only has access to a single database.  We do not recommend connecting to the database as the root user.
 			This is generally a really bad choice because this user has full access.
-			We will not be responsible if something gets deleted!</li>
+			We will not be responsible if something gets deleted!  Please note that there
+			are no checks for <a href="https://en.wikipedia.org/wiki/SQL_injection">SQL injection</a> attacks so be extremely
+			careful about how you allow users to input information that will run against the database.</li>
 			<li>Put the Databases.txt file in the appdata Arma2MySQL folder:
 			<pre>C:\Users\Yourname\AppData\Local\Arma2MySQL\Databases.txt</pre>
 			</li>
