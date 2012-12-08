@@ -197,6 +197,9 @@ it will return the string "TooLong".  Then you know you will need to limit the n
 you can use <a href="https://dev.mysql.com/doc/refman/5.0/en/select.html">the limit parameter</a>, or in SQLite,
 <a href="https://www.sqlite.org/lang_select.html">the limit parameter</a>.  This is a limitation of
 Arma2 so don't ask for this to be fixed.</p>
+<p>Currently, commas cannot be used as data to be sent back and forth because the system uses commas to identify
+splitting up the database columns.  If you have a suggestion for how to solve this or would like to submit a fix, I would
+certainly appreciate it.</p>
 
 <a name="troubleshooting"><h2>Troubleshooting</h2></a>
 
