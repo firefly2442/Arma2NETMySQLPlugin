@@ -42,7 +42,7 @@ namespace Arma2NETMySQLPlugin
                 }
                 else
                 {
-                    logDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Arma2MySQL/logs/");
+                    logDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Arma2NETMySQL/logs/");
                     if (!System.IO.Directory.Exists(logDir))
                     {
                         System.IO.Directory.CreateDirectory(logDir);

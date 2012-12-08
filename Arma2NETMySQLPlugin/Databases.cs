@@ -21,7 +21,7 @@ namespace Arma2NETMySQLPlugin
             if (File.Exists("Databases.txt")) {
                 databasesFileLocation = Path.GetFullPath("Databases.txt");
             } else {
-                databasesFileLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Arma2MySQL/Databases.txt");
+                databasesFileLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Arma2NETMySQL/Databases.txt");
                 if (!File.Exists(databasesFileLocation))
                 {
                     Logger.addMessage(Logger.LogType.Error, "Unable to find the Databases.txt file in AppData, are you sure it's there?");

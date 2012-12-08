@@ -25,7 +25,7 @@ namespace Arma2NETMySQLPlugin
             }
             else
             {
-                sqliteDatabaseLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Arma2MySQL/sqlite/");
+                sqliteDatabaseLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Arma2NETMySQL/sqlite/");
                 if (!System.IO.Directory.Exists(sqliteDatabaseLocation))
                 {
                     System.IO.Directory.CreateDirectory(sqliteDatabaseLocation);

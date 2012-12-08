@@ -17,8 +17,8 @@ namespace Arma2NETMySQLPlugin
             if (started_up == false)
             {
                 //create appdata folder if it doesn't already exist
-                var appDataLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Arma2MySQL");
-                //check to see if the Arma2MySQL folder exists, if not create it
+                var appDataLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Arma2NETMySQL");
+                //check to see if the Arma2NETMySQL folder exists, if not create it
                 if (!System.IO.Directory.Exists(appDataLocation)) {
                     System.IO.Directory.CreateDirectory(appDataLocation);
                 }
