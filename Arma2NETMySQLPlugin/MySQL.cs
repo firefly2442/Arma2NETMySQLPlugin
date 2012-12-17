@@ -220,7 +220,14 @@ namespace Arma2NETMySQLPlugin
                         List<string> inner_data = new List<string>();
                         for (int i = 0; i < reader.FieldCount; i++)
                         {
-                            string value = reader.GetString(i);
+                            //We need to check for a null column entry here, otherwise, things explode
+                            //http://stackoverflow.com/questions/1772025/sql-data-reader-handling-null-column-values
+                            string value = "";
+                            if (!reader.IsDBNull(i))
+                            {
+                                value = reader.GetString(i);
+                            }
+
                             inner_data.Add(value);
                             //Logger.addMessage(Logger.LogType.Info, "Row value is: " + value);
                         }
