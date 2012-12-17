@@ -96,7 +96,7 @@ namespace Arma2NETMySQLPlugin
                 string database = arguments[0] as string;
                 string mysql_command = arguments[1] as string;
 
-                Logger.addMessage(Logger.LogType.Info, "Received - Database: " + database + " MySQL Command: " + mysql_command.ToString());
+                Logger.addMessage(Logger.LogType.Info, "Received - Database: " + database + " SQL Query: " + mysql_command.ToString());
 
                 if (SQL.dbs.SQLProviderExists(database))
                 {
