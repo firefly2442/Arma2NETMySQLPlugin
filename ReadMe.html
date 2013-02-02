@@ -60,24 +60,32 @@ it for saving information.
 
 <a name="systemreqs"><h2>Requirements</h2></a>
 
-To run the application:
+To run the plugin:
 <ul>
-	<li>You need a Windows server. (see known issues)</li>
+	<li>You need a Windows server. (<a href="#known_issues">see known issues</a>)</li>
 	<li>One of the following:</li>
 	<ul>
 		<li><a href="http://www.mysql.org" target="_blank">A MySQL server and database setup</a></li>
 		<li><a href="https://www.sqlite.org" target="_blank">A SQLite database setup</a></li>
 	</ul>
-	<li><a href="http://www.mysql.com/downloads/connector/net/">MySQL Connector for .NET</a> The program has been
-	successfully tested with version 6.5.4</li>
-	<li><a href="http://system.data.sqlite.org/index.html/doc/trunk/www/downloads.wiki">Precompiled Binaries of SQLite
-	for 32-bit Windows (.NET Framework 4.0)</a> The program has been successfully tested with version 1.0.81.0</li>
 	<li><a href="http://www.microsoft.com/download/en/details.aspx?id=24872">Microsoft .NET Framework 4 Client Profile</a></li>
 	<li>Arma2OA Beta version 87640 or later (full client or dedicated server)</li>
 		<ul>
 			<li>See <a href="https://dev-heaven.net/issues/31028">here</a> for a note about Windows dedicated servers and required files.</li>
+			<li>I would recommend running whatever <a href="http://www.arma2.com/beta-patch.php" target="_blank">Beta version</a> is
+			the latest, while it may not be super stable, it should have the latest features.</li>
 		</ul>
 	</li>
+	<li><a href="https://dev-heaven.net/projects/a2n" target="_blank">Arma2NET</a>, this should already be included if you downloaded a compiled
+	version of this plugin.</li>
+</ul>
+If you are compiling the plugin from sourcecode or will be expanding or changing the plugin sourcecode, you will need the the following
+in addition to the above items.  If you downloaded a compiled version, these dependencies should already be included in the download.
+<ul>
+	<li><a href="http://www.mysql.com/downloads/connector/net/">MySQL Connector for .NET</a> The program has been
+	successfully tested with version 6.5.4</li>
+	<li><a href="http://system.data.sqlite.org/index.html/doc/trunk/www/downloads.wiki">Precompiled Binaries of SQLite
+	for 32-bit Windows (.NET Framework 4.0)</a> The program has been successfully tested with version 1.0.81.0</li>
 </ul>
 
 
@@ -105,6 +113,21 @@ Make sure the file/folder structure matches one of these:</p>
 </ul>
 
 <p>This location is for Windows 7/Vista, if you're running an older version, this location will probably be different.</p>
+
+<p>The folder structure for Arma2NET should look like the following.  Note that if you downloaded a compiled version of the plugin,
+this should already be included and already setup correctly.</p>
+
+<ul>
+	<li>
+		<pre>This is just an example location, you'll have to figure out where your Arma2 folder is.</pre>
+		<pre>E:\Program Files\Steam\steamapps\common\arma 2 operation arrowhead\@Arma2NET\</pre>
+		<pre>E:\Program Files\Steam\steamapps\common\arma 2 operation arrowhead\@Arma2NET\Addins\</pre>
+		<pre>E:\Program Files\Steam\steamapps\common\arma 2 operation arrowhead\@Arma2NET\AddIns\Arma2NETMySQLPlugin\</pre>
+		<pre>E:\Program Files\Steam\steamapps\common\arma 2 operation arrowhead\@Arma2NET\AddIns\Arma2NETMySQLPlugin\Arma2NETMySQLPlugin.dll</pre>
+		<pre>E:\Program Files\Steam\steamapps\common\arma 2 operation arrowhead\@Arma2NET\AddIns\Arma2NETMySQLPlugin\MySql.Data.dll</pre>
+		<pre>E:\Program Files\Steam\steamapps\common\arma 2 operation arrowhead\@Arma2NET\AddIns\Arma2NETMySQLPlugin\System.Data.SQLite.dll</pre>
+	</li>
+</ul>
 
 <ul>
 	<li>Edit the Databases.txt file (requires separate lines for each database, even if they're on the same host).</li>
@@ -233,7 +256,8 @@ log files, otherwise we will have problems helping you.</p>
 the references are pointing to the correct place.  MySql.Data needs to be listed in the references and should point to "MySql.Data.dll"
 which is provided by the MySQL Connector listed above.  System.Data.SQLite should point to "System.Data.SQLite.dll" which is provided
 by the SQLite precompiled binaries listed above.  Once these are set, you can compile the sourcecode.  The resulting .DLL should be placed
-in the Arma2NET Addins folder here: @Arma2NET\AddIns\Arma2NETMySQLPlugin.  Each plugin is stored in a folder with the name of the DLL.</p>
+in the Arma2NET Addins folder here: @Arma2NET\AddIns\Arma2NETMySQLPlugin.  Each plugin is stored in a folder with the name of the DLL.
+Any dependency DLLs can also be placed in this folder as well.</p>
 
 <p>For easy testing, you can use Arma2NetExplorer.exe provided by Arma2NET.  After launching this program, click "list addins" to see
 if Arma2NETMySQL loaded in correctly.  Then you can run straight commands as outlined in the above documentation.  For example:</p>
