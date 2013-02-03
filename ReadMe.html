@@ -185,7 +185,7 @@ this should already be included and already setup correctly.</p>
 				<li>And they need to have the following filename ending:</li>
 				<pre>.sqlite</pre>
 				<li>So, for example you might have:</li>
-				<pre>C:\Users\Yourname\AppData\Local\Arma2NETMySQL\sqlite\weaponslite.sqlite</pre>
+				<pre>C:\Users\Yourname\AppData\Local\Arma2NETMySQL\sqlite\weapons.sqlite</pre>
 				<li>Make sure your database name matches the name in the Databases.txt file (minus the .sqlite ending of course).</li>
 				<li>If you need a client for creating and managing SQLite databases, <a href="https://addons.mozilla.org/en-US/firefox/addon/sqlite-manager/">
 				this Firefox plugin</a> is quite nice.</li>
@@ -195,8 +195,8 @@ this should already be included and already setup correctly.</p>
 				<li>This is similar to what you're probably used to.  Commands like:
 				<pre>SELECT * FROM table WHERE name = 'user'</pre></li>
 				<li>Your SQF code will look something like this:
-				<pre>_selectTest = "Arma2Net.Unmanaged" callExtension "Arma2NETMySQLCommand ['weaponslite', 'SELECT * FROM users LIMIT 3']";</pre>
-				In this example, "weaponslite" is the database name.  The next portion is the entire SQLite command which you will need
+				<pre>_selectTest = "Arma2Net.Unmanaged" callExtension "Arma2NETMySQLCommand ['weapons', 'SELECT * FROM users LIMIT 3']";</pre>
+				In this example, "weapons" is the database name.  The next portion is the entire SQLite command which you will need
 				to create manually.</li>
 			</ul>
 	</ol>
