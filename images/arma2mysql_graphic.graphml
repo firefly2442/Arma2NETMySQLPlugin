@@ -21,7 +21,7 @@
           <y:Geometry height="30.0" width="331.0" x="42.0" y="191.00371932983398"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="298.767578125" x="16.1162109375" y="5.6494140625">Arma 2 Server (running Arma2NETMySQL Plugin Mod)</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="308.775390625" x="11.1123046875" y="5.6494140625">Arma 2/3 Server (running Arma2NETMySQL Plugin Mod)</y:NodeLabel>
           <y:Shape type="roundrectangle"/>
         </y:ShapeNode>
       </data>
@@ -59,7 +59,7 @@
           <y:Geometry height="48.0" width="48.0" x="183.5" y="304.0"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="92.86083984375" x="-22.430419921875" y="52.0">Arma 2 Players</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" modelName="sandwich" modelPosition="s" textColor="#000000" visible="true" width="103.70263671875" x="-27.851318359375" y="52.0">Arma 2/3 Players</y:NodeLabel>
           <y:Image refid="3"/>
         </y:ImageNode>
       </data>
@@ -77,7 +77,6 @@
       </data>
     </node>
     <node id="n5">
-      <data key="d5"/>
       <data key="d6">
         <y:SVGNode>
           <y:Geometry height="47.612998962402344" width="39.25" x="76.72847027027024" y="107.19350051879883"/>
@@ -168,7 +167,6 @@
       </data>
     </edge>
     <edge id="e7" source="n0" target="n5">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
