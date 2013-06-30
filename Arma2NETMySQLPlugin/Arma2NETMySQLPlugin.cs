@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Arma2Net.AddInProxy;
 
 namespace Arma2NETMySQLPlugin
@@ -86,6 +87,55 @@ namespace Arma2NETMySQLPlugin
         //This method is called when callExtension is used from SQF:
         //"Arma2Net.Unmanaged" callExtension "Arma2NetMySQLCommand ..."
         public override string Invoke(string args, int maxResultSize)
+        {
+            //if we haven't setup the database connection and such yet, this will do it
+            Startup.StartupConnection();
+
+            IList<object> arguments;
+            if (Format.TrySqfAsCollection(args, out arguments) && arguments.Count == 2 && arguments[0] != null && arguments[1] != null)
+            {
+                string database = arguments[0] as string;
+                string mysql_command = arguments[1] as string;
+
+                Logger.addMessage(Logger.LogType.Info, "Received - Database: " + database + " SQL Query: " + mysql_command.ToString());
+
+                if (SQL.dbs.SQLProviderExists(database))
+                {
+                    IEnumerable<string[][]> returned = SQL.dbs.getSQLProvider(database).RunCommand(mysql_command, maxResultSize);
+                    return Format.ObjectAsSqf(returned);
+                }
+                else
+                {
+                    Logger.addMessage(Logger.LogType.Warning, "The database: " + database + " is not loaded in through the Databases.txt file.");
+                }
+
+                //Logger.addMessage(Logger.LogType.Info, "Returning false object");
+                return Format.ObjectAsSqf(false);
+            }
+            else
+            {
+                Logger.addMessage(Logger.LogType.Error, "The number and/or format of the arguments passed in doesn't match.");
+                throw new ArgumentException();
+            }
+        }
+
+        public override void Unload()
+        {
+            Startup.Unload();
+        }
+    }
+
+    //the function name for the plugin (called from Arma side)
+    [AddIn("Arma2NETMySQLCommandAsync", Version = "0.1.0.0", Publisher = "firefly2442", Description = "Runs asynchronous raw MySQL/SQLite commands")]
+    public class Arma2NETMySQLPluginCommandAsync : AsyncAddIn
+    {
+        //AsyncAddIn - when you want to pass data from the game and immediately return null
+        // then, subsequent checks by the game check to see if the data can be returned.
+        //On the SQF side, this means that we can only do one call at a time...
+
+        //This method is called when callExtension is used from SQF:
+        //"Arma2Net.Unmanaged" callExtension "Arma2NetMySQLCommandAsync ..."
+        public override string InvokeAsync(string args, int maxResultSize, CancellationToken token)
         {
             //if we haven't setup the database connection and such yet, this will do it
             Startup.StartupConnection();
