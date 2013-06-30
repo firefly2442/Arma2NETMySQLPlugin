@@ -252,6 +252,9 @@ certainly appreciate it.</p>
 at the bottom of the list there is a security tab. For the precompiled DLL, it knows the DLL came from another computer and
 thus doesn't trust it.  You'll need to enable the DLL to run.  If you are not comfortable with this, you can always compile
 the source code and generate the DLL yourself.</p>
+<p>For the dependency DLL files of MySQL and SQLite, if you are having trouble and it is giving you an error about System.IO.FileNotFoundException
+there is a possible solution.  You can try putting the DLL dependencies for these two in @Arma2NET/DLLhere.dll.  Just copy the DLL files
+from the installed location to this root @Arma2NET folder.  You will need to relaunch the game.</p>
 <p>If you are getting a returned result of "Error" in the game, this means there's something wrong with your query.  Check
 the logs to track down the problem.</p>
 <p>Stuck?  First check the "logs" folder.  The plugin creates a new log file each time it's run.  Go into your appdata folder
