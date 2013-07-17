@@ -151,6 +151,12 @@ namespace Arma2NETMySQLPlugin
                 if (SQL.dbs.SQLProviderExists(database))
                 {
                     IEnumerable<string[][]> returned = SQL.dbs.getSQLProvider(database).RunCommand(mysql_command, maxResultSize);
+                    //the following is needed because we need to return something even if there is nothing to return
+                    //for example, an SQL DELETE call will go off and return ""
+                    //however, because on the SQF side, we check for this in a while loop so we know the database process has completed, we can
+                    //just return an empty array
+                    if (returned.ToString() == "")
+                        return Format.ObjectAsSqf("[]");
                     return Format.ObjectAsSqf(returned);
                 }
                 else
