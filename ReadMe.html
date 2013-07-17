@@ -181,10 +181,36 @@ this should already be included and already setup correctly.</p>
 			<ul>
 				<li>This is similar to what you're probably used to.  Commands like:
 				<pre>SELECT * FROM table WHERE name = 'user'</pre></li>
-				<li>Your SQF code will look something like this:
-				<pre>_selectTest = "Arma2Net.Unmanaged" callExtension "Arma2NETMySQLCommand ['weapons', 'SELECT * FROM users LIMIT 3']";</pre>
-				In this example, "weapons" is the database name.  The next portion is the entire MySQL command which you will need
-				to create manually.  Note that the call names are different between running stored procedures versus straight queries.</li>
+				<li>There are two ways to run straight SQL queries.  The first way is a little simpler and easier on the SQF scripting side.
+				It uses the command Arma2NETMySQLCommand and will block until a result is returned.
+				The other way is to use the command Arma2NETMySQLCommandAsync which is better for servers that will heavily
+				utilize this plugin and have significant numbers of players.  This will return null immediately upon calling it because
+				it's an asynchronous call.  You will then need to loop and continue calling it until you get the result back.  If you
+				are fairly proficient with SQF, I would recommend the second option.
+				<ul>
+					<li>
+					<p>Option One: Arma2NETMySQLCommand:</p>
+					<p>Your SQF code will look something like this:</p>
+					<pre>_selectTest = "Arma2Net.Unmanaged" callExtension "Arma2NETMySQLCommand ['weapons', 'SELECT * FROM users LIMIT 3']";</pre>
+					<p>In this example, "weapons" is the database name.  The next portion is the entire MySQL command which you will need
+					to create manually.  This will block until the database call is complete and the result is returned.</p>
+					</li>
+					<li>
+					<p>Option Two: Arma2NETMySQLCommandAsync</p>
+					<p>Your SQF will look something like this:</p>
+					<pre>
+_selectTest = nil;
+while {isNil("_selectTest")} do {
+	_selectTest = "Arma2Net.Unmanaged" callExtension "Arma2NETMySQLCommandAsync ['weapons', 'SELECT * FROM users LIMIT 3']";
+	if (_selectTest == "") then {
+		_selectTest = nil;
+	};
+	sleep 0.5;  //sleep for a half-second so we don't thrash the server with callExtension calls
+};
+					</pre>
+					<p>In this example, "weapons" is the database name.  The next portion is the entire MySQL command which you will need
+					to create manually.  You will then need to loop until the result is returned.</p>
+				</ul>
 			</ul>
 	</ol>
 	<li>There is one way to run SQLite queries with this plugin.</li>
@@ -200,14 +226,40 @@ this should already be included and already setup correctly.</p>
 				<li>If you need a client for creating and managing SQLite databases, <a href="https://addons.mozilla.org/en-US/firefox/addon/sqlite-manager/">
 				this Firefox plugin</a> is quite nice.</li>
 			</ul>
-		<li>Straight queries:</li>
+<li>Straight queries:</li>
 			<ul>
 				<li>This is similar to what you're probably used to.  Commands like:
 				<pre>SELECT * FROM table WHERE name = 'user'</pre></li>
-				<li>Your SQF code will look something like this:
-				<pre>_selectTest = "Arma2Net.Unmanaged" callExtension "Arma2NETMySQLCommand ['weapons', 'SELECT * FROM users LIMIT 3']";</pre>
-				In this example, "weapons" is the database name.  The next portion is the entire SQLite command which you will need
-				to create manually.</li>
+				<li>There are two ways to run straight SQL queries.  The first way is a little simpler and easier on the SQF scripting side.
+				It uses the command Arma2NETMySQLCommand and will block until a result is returned.
+				The other way is to use the command Arma2NETMySQLCommandAsync which is better for servers that will heavily
+				utilize this plugin and have significant numbers of players.  This will return null immediately upon calling it because
+				it's an asynchronous call.  You will then need to loop and continue calling it until you get the result back.  If you
+				are fairly proficient with SQF, I would recommend the second option.
+				<ul>
+					<li>
+					<p>Option One: Arma2NETMySQLCommand:</p>
+					<p>Your SQF code will look something like this:</p>
+					<pre>_selectTest = "Arma2Net.Unmanaged" callExtension "Arma2NETMySQLCommand ['weapons', 'SELECT * FROM users LIMIT 3']";</pre>
+					<p>In this example, "weapons" is the database name.  The next portion is the entire MySQL command which you will need
+					to create manually.  This will block until the database call is complete and the result is returned.</p>
+					</li>
+					<li>
+					<p>Option Two: Arma2NETMySQLCommandAsync</p>
+					<p>Your SQF will look something like this:</p>
+					<pre>
+_selectTest = nil;
+while {isNil("_selectTest")} do {
+	_selectTest = "Arma2Net.Unmanaged" callExtension "Arma2NETMySQLCommandAsync ['weapons', 'SELECT * FROM users LIMIT 3']";
+	if (_selectTest == "") then {
+		_selectTest = nil;
+	};
+	sleep 0.5;  //sleep for a half-second so we don't thrash the server with callExtension calls
+};
+					</pre>
+					<p>In this example, "weapons" is the database name.  The next portion is the entire MySQL command which you will need
+					to create manually.  You will then need to loop until the result is returned.</p>
+				</ul>
 			</ul>
 	</ol>
 	<li>Run Arma2/Arma3 and add @Arma2NET as a mod.  For example your command line parameters (for the server which connects to the database):
@@ -245,6 +297,11 @@ Arma2 so don't ask for this to be fixed.</p>
 <p>Currently, commas cannot be used as data to be sent back and forth because the system uses commas to identify
 splitting up the database columns.  If you have a suggestion for how to solve this or would like to submit a fix, I would
 certainly appreciate it.</p>
+<p>The <a href="http://community.bistudio.com/wiki/callExtension">callExtension</a> method will block on the server until
+a result is returned.  Some people were reporting problems when running this plugin on servers with lots of players and running
+many database calls.  This was lagging the server and causing players issues.  If you are doing this and using Arma2NETMySQLCommand
+and need super high performance, consider switching over to the asynchronous
+method of using Arma2NETMySQLCommandAsync.</p>
 
 <a name="troubleshooting"><h2>Troubleshooting</h2></a>
 
