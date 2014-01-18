@@ -11,3 +11,9 @@
 
 #.mo files (binary version of .po file)
 *.mo
+
+*.doctree
+.doctrees/
+
+#don't commit the generated docs, we can distribute those via the binary
+documentation/docs/

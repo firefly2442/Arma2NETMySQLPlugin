@@ -1,0 +1,8 @@
+Arma2NETMySQLPlugin
+==========
+
+This is a plugin for Arma2NET that can connect to MySQL and SQLite
+databases.
+
+See the `documentation` folder for the complete readme in a
+variety of languages/translations.
