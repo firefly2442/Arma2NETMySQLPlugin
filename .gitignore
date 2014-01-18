@@ -8,3 +8,6 @@
 *.user
 *.[Cc]ache
 *.log
+
+#.mo files (binary version of .po file)
+*.mo
