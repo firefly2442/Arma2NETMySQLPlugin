@@ -20,13 +20,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using Arma2Net.AddInProxy;
+using Arma2Net;
 
 namespace Arma2NETMySQLPlugin
 {
     //the function name for the plugin (called from Arma side)
-    [AddIn("Arma2NETMySQL", Version = "0.1.0.0", Publisher = "firefly2442", Description = "Runs MySQL procedure commands.")]
-    public class Arma2NETMySQLPlugin : AddIn
+    [Addin("Arma2NETMySQL", Version = "0.1.0.0", Author = "firefly2442", Description = "Runs MySQL procedure commands.")]
+    public class Arma2NETMySQLPlugin : Addin
     {
         //This method is called when callExtension is used from SQF:
         //"Arma2Net.Unmanaged" callExtension "Arma2NetMySQL ..."
@@ -81,8 +81,8 @@ namespace Arma2NETMySQLPlugin
     }
 
     //the function name for the plugin (called from Arma side)
-    [AddIn("Arma2NETMySQLCommand", Version = "0.1.0.0", Publisher = "firefly2442", Description = "Runs raw MySQL/SQLite commands")]
-    public class Arma2NETMySQLPluginCommand : AddIn
+    [Addin("Arma2NETMySQLCommand", Version = "0.1.0.0", Author = "firefly2442", Description = "Runs raw MySQL/SQLite commands")]
+    public class Arma2NETMySQLPluginCommand : Addin
     {
         //This method is called when callExtension is used from SQF:
         //"Arma2Net.Unmanaged" callExtension "Arma2NetMySQLCommand ..."
@@ -126,7 +126,7 @@ namespace Arma2NETMySQLPlugin
     }
 
     //the function name for the plugin (called from Arma side)
-    [AddIn("Arma2NETMySQLCommandAsync", Version = "0.1.0.0", Publisher = "firefly2442", Description = "Runs asynchronous raw MySQL/SQLite commands")]
+    [Addin("Arma2NETMySQLCommandAsync", Version = "0.1.0.0", Author = "firefly2442", Description = "Runs asynchronous raw MySQL/SQLite commands")]
     public class Arma2NETMySQLPluginCommandAsync : AsyncAddIn
     {
         //AsyncAddIn - when you want to pass data from the game and immediately return null

@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Arma2Net.AddInProxy;
+using Arma2Net;
 using System.IO;
 
 namespace Arma2NETMySQLPlugin
