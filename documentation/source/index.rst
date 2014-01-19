@@ -603,7 +603,7 @@ The base .pot file can be found here:
 
 .. code-block:: html
 
-	Arma2NETMySQLPlugin/documentation/build/locale/readme.pot
+	Arma2NETMySQLPlugin/documentation/build/locale/index.pot
 
 An excellent cross-platform
 editor for .po files is `Poedit`_.  Then, submit a pull request and I

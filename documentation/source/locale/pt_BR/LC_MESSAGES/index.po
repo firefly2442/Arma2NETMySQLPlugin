@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arma2NETMySQLPlugin 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-18 16:14-0600\n"
+"POT-Creation-Date: 2014-01-18 22:47-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,35 +11,35 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../../source/readme.rst:3
+#: ../../source/index.rst:3
 msgid "Arma2NETMySQLPlugin's documentation"
 msgstr ""
 
-#: ../../source/readme.rst:9
+#: ../../source/index.rst:9
 msgid "Introduction"
 msgstr ""
 
-#: ../../source/readme.rst:11
+#: ../../source/index.rst:11
 msgid "Links:"
 msgstr ""
 
-#: ../../source/readme.rst:13
+#: ../../source/index.rst:13
 msgid "`Arma2NETMySQLPlugin Github Page`_"
 msgstr ""
 
-#: ../../source/readme.rst:14
+#: ../../source/index.rst:14
 msgid "`Arma2NETMySQLPlugin BIS Forums Thread`_"
 msgstr ""
 
-#: ../../source/readme.rst:15 ../../source/readme.rst:410
+#: ../../source/index.rst:15 ../../source/index.rst:410
 msgid "`Arma 2 Example Mission`_"
 msgstr ""
 
-#: ../../source/readme.rst:16 ../../source/readme.rst:411
+#: ../../source/index.rst:16 ../../source/index.rst:411
 msgid "`Arma 3 Example Mission`_"
 msgstr ""
 
-#: ../../source/readme.rst:23
+#: ../../source/index.rst:23
 msgid ""
 "This plugin acts as an intermediary between Arma2/Arma3 and a `MySQL`_ or "
 "`SQLite`_ database. It uses the `Arma2NET`_ wrapper system.  It is written "
@@ -48,17 +48,17 @@ msgid ""
 "SQLite database runs on the local machine."
 msgstr ""
 
-#: ../../source/readme.rst:28
+#: ../../source/index.rst:28
 msgid ""
 "Please read this entire document as it has many important details regarding "
 "the installation and setup."
 msgstr ""
 
-#: ../../source/readme.rst:37
+#: ../../source/index.rst:37
 msgid "History"
 msgstr ""
 
-#: ../../source/readme.rst:39
+#: ../../source/index.rst:39
 msgid ""
 "This program has had a long history.  Initially, the program used "
 "`JayArma2Lib`_ because DLL injections were the only way to pass information "
@@ -69,7 +69,7 @@ msgid ""
 " here`_ and an `example mission`_ was created."
 msgstr ""
 
-#: ../../source/readme.rst:45
+#: ../../source/index.rst:45
 msgid ""
 "Technically, all that code should still work but the bad part was all the "
 "formatting and ugly stuff that had to be done in game via SQF scripting in "
@@ -77,76 +77,76 @@ msgid ""
 "through strings and creating arrays and generally was pretty hacky."
 msgstr ""
 
-#: ../../source/readme.rst:49
+#: ../../source/index.rst:49
 msgid ""
 "Then, `Arma2NET`_ came along and things got much easier.  This wrapper "
 "system allows us to return nice results back to Arma2/Arma3 without having "
 "to deal with all the formatting nonsense."
 msgstr ""
 
-#: ../../source/readme.rst:52
+#: ../../source/index.rst:52
 msgid ""
 "The end result is a plugin for Arma2NET called Arma2NETMySQLPlugin. "
 "Development of this plugin is done via `Github`_."
 msgstr ""
 
-#: ../../source/readme.rst:55
+#: ../../source/index.rst:55
 msgid ""
 "There are a wide variety of projects that currently use this plugin to save "
 "data."
 msgstr ""
 
-#: ../../source/readme.rst:57
+#: ../../source/index.rst:57
 msgid ""
 "`Persistent Database Scripts`_ (not currently maintained or updated) created"
 " by `[KH]JMan`_ and others"
 msgstr ""
 
-#: ../../source/readme.rst:58
+#: ../../source/index.rst:58
 msgid "`MSO`_ (modular mission framework)"
 msgstr ""
 
-#: ../../source/readme.rst:59
+#: ../../source/index.rst:59
 msgid "`Altis Life RPG`_"
 msgstr ""
 
-#: ../../source/readme.rst:63
+#: ../../source/index.rst:63
 msgid ""
 "Arma2NET and this plugin are only required on your Arma2/Arma3 server.  They"
 " are not needed client-side."
 msgstr ""
 
-#: ../../source/readme.rst:80
+#: ../../source/index.rst:80
 msgid "Requirements"
 msgstr ""
 
-#: ../../source/readme.rst:82
+#: ../../source/index.rst:82
 msgid "To run the plugin:"
 msgstr ""
 
-#: ../../source/readme.rst:84
+#: ../../source/index.rst:84
 msgid "You need a Windows server. (see `Known Issues`)"
 msgstr ""
 
-#: ../../source/readme.rst:85
+#: ../../source/index.rst:85
 msgid "One of the following:"
 msgstr ""
 
-#: ../../source/readme.rst:87
+#: ../../source/index.rst:87
 msgid "A `MySQL`_ server and database setup"
 msgstr ""
 
-#: ../../source/readme.rst:88
+#: ../../source/index.rst:88
 msgid "A `SQLite`_ database setup"
 msgstr ""
 
-#: ../../source/readme.rst:90
+#: ../../source/index.rst:90
 msgid ""
 "Install **both** of the following dependencies (even if you are only using "
 "MySQL or SQLite individually):"
 msgstr ""
 
-#: ../../source/readme.rst:92
+#: ../../source/index.rst:92
 msgid ""
 "If you are using a precompiled version of this plugin, you will need to use "
 "the specific version of the connectors for MySQL and SQLite listed below.  "
@@ -157,63 +157,63 @@ msgid ""
 "this."
 msgstr ""
 
-#: ../../source/readme.rst:98
+#: ../../source/index.rst:98
 msgid "`MySQL Connector for .NET`_"
 msgstr ""
 
-#: ../../source/readme.rst:100
+#: ../../source/index.rst:100
 msgid "Successfully tested with version 6.7.4 (mysql-connector-net-6.7.4.msi)"
 msgstr ""
 
-#: ../../source/readme.rst:102
+#: ../../source/index.rst:102
 msgid ""
 "`Precompiled Binaries of SQLite for 32-bit Windows (.NET Framework 4.0)`_"
 msgstr ""
 
-#: ../../source/readme.rst:104
+#: ../../source/index.rst:104
 msgid ""
 "Successfully tested with version 1.0.89.0 (sqlite-netFx40-setup-"
 "bundle-x86-2010-1.0.89.0.exe)"
 msgstr ""
 
-#: ../../source/readme.rst:106
+#: ../../source/index.rst:106
 msgid "`Microsoft .NET Framework 4 Client Profile`_"
 msgstr ""
 
-#: ../../source/readme.rst:108
+#: ../../source/index.rst:108
 msgid "Arma 2 or Arma 3"
 msgstr ""
 
-#: ../../source/readme.rst:110
+#: ../../source/index.rst:110
 msgid "Arma2OA Beta version 87640 or later (full client or dedicated server)"
 msgstr ""
 
-#: ../../source/readme.rst:112
+#: ../../source/index.rst:112
 msgid ""
 "See `the following ticket`_ for a note about Windows dedicated servers and "
 "required files.  I would recommend running whatever `Arma 2 beta version`_ "
 "is the latest."
 msgstr ""
 
-#: ../../source/readme.rst:114
+#: ../../source/index.rst:114
 msgid "Arma 3 (all versions supported)"
 msgstr ""
 
-#: ../../source/readme.rst:116
+#: ../../source/index.rst:116
 msgid ""
 "`Arma2NET`_, this should already be included if you downloaded a compiled "
 "version of this plugin."
 msgstr ""
 
-#: ../../source/readme.rst:131
+#: ../../source/index.rst:131
 msgid "Installation and Setup"
 msgstr ""
 
-#: ../../source/readme.rst:135
+#: ../../source/index.rst:135
 msgid "Copy Files and Setup Folder Structure"
 msgstr ""
 
-#: ../../source/readme.rst:137
+#: ../../source/index.rst:137
 msgid ""
 "Arma2NETMySQL looks two places for the relevant files and folders.  First, "
 "it checks the Arma2/Arma3 root directory.  If it can't find them there, it "
@@ -224,43 +224,43 @@ msgid ""
 "these."
 msgstr ""
 
-#: ../../source/readme.rst:142
+#: ../../source/index.rst:142
 msgid ""
 "Don't put some files in one location and some in the other, that could "
 "result in problems."
 msgstr ""
 
-#: ../../source/readme.rst:144 ../../source/readme.rst:165
+#: ../../source/index.rst:144 ../../source/index.rst:165
 msgid ""
 "This is just an example location for Arma 2, you'll have to figure out where"
 " your Arma2/Arma3 game folder is."
 msgstr ""
 
-#: ../../source/readme.rst:160
+#: ../../source/index.rst:160
 msgid ""
 "This location is for Windows 7/Vista.  If you're running an older version of"
 " Windows, this location will probably be different."
 msgstr ""
 
-#: ../../source/readme.rst:162
+#: ../../source/index.rst:162
 msgid ""
 "The folder structure for Arma2NET should look like the following.  Note that"
 " if you downloaded a compiled version of the plugin, this should already be "
 "included and setup correctly."
 msgstr ""
 
-#: ../../source/readme.rst:178
+#: ../../source/index.rst:178
 msgid "Setup the Databases.txt File"
 msgstr ""
 
-#: ../../source/readme.rst:180
+#: ../../source/index.rst:180
 msgid ""
 "Edit the Databases.txt file. This file requires separate lines for each "
 "database (even if they're on the same host). Any line that starts with a "
 "pound/hash sign \"#\" is considered a comment."
 msgstr ""
 
-#: ../../source/readme.rst:183
+#: ../../source/index.rst:183
 msgid ""
 "This database text file stores usernames and passwords in plaintext.  **Be "
 "very careful about who has access to this!**  In addition, Arma2NETMySQL "
@@ -274,17 +274,17 @@ msgid ""
 "information that will run against the database."
 msgstr ""
 
-#: ../../source/readme.rst:191
+#: ../../source/index.rst:191
 msgid ""
 "Put the Databases.txt file in the appropriate location given the folder "
 "structure that you decided on above."
 msgstr ""
 
-#: ../../source/readme.rst:198
+#: ../../source/index.rst:198
 msgid "Setup @Arma2NET Mod"
 msgstr ""
 
-#: ../../source/readme.rst:200
+#: ../../source/index.rst:200
 msgid ""
 "Next you will need to setup @Arma2NET as a mod and start Arma2/Arma3.  "
 "Simply add the mod when you start the game. For example your command line "
@@ -292,20 +292,20 @@ msgid ""
 "this:"
 msgstr ""
 
-#: ../../source/readme.rst:209
+#: ../../source/index.rst:209
 msgid ""
 "See the `Arma 2 startup parameters`_ or `Arma 3 startup parameters`_ pages "
 "for more details."
 msgstr ""
 
-#: ../../source/readme.rst:211
+#: ../../source/index.rst:211
 msgid ""
 "This plugin doesn't require any other third party mods like ACE or CBA.  "
 "But, they do have some nice utility functions and features that may be "
 "helpful when you make your missions."
 msgstr ""
 
-#: ../../source/readme.rst:214
+#: ../../source/index.rst:214
 msgid ""
 "Arma2/Arma3 player clients do not need to do any of this.  This plugin runs "
 "serverside. The players will interact with the Arma2/Arma3 server.  Through "
@@ -314,32 +314,32 @@ msgid ""
 "mods that they need to install."
 msgstr ""
 
-#: ../../source/readme.rst:225
+#: ../../source/index.rst:225
 msgid "Using the Plugin"
 msgstr ""
 
-#: ../../source/readme.rst:229
+#: ../../source/index.rst:229
 msgid "Connecting to MySQL"
 msgstr ""
 
-#: ../../source/readme.rst:231
+#: ../../source/index.rst:231
 msgid ""
 "There are two ways to run MySQL queries with this plugin.  One is using "
 "MySQL stored procedures and the other is just to use straight SQL queries."
 msgstr ""
 
-#: ../../source/readme.rst:236
+#: ../../source/index.rst:236
 msgid "MySQL Stored Procedures"
 msgstr ""
 
-#: ../../source/readme.rst:238
+#: ../../source/index.rst:238
 msgid ""
 "Setup a MySQL database and create some stored procedures to use.  For "
 "information regarding permissions required to create and execute stored "
 "procedures, see this `MySQL guide`_."
 msgstr ""
 
-#: ../../source/readme.rst:241
+#: ../../source/index.rst:241
 msgid ""
 "MySQL stored procedures are essentially just stored commands that run.  If "
 "you know basic SQL commands (SELECT, INSERT, UPDATE, etc.) you should be "
@@ -347,47 +347,47 @@ msgid ""
 "passed which can then be used in the procedure."
 msgstr ""
 
-#: ../../source/readme.rst:245
+#: ../../source/index.rst:245
 msgid ""
 "There are a wide variety of tutorials regarding MySQL stored procedures but "
 "the best one I've found so far with nice examples are these:"
 msgstr ""
 
-#: ../../source/readme.rst:248
+#: ../../source/index.rst:248
 msgid "`Getting Started With Stored Procedures`_"
 msgstr ""
 
-#: ../../source/readme.rst:249
+#: ../../source/index.rst:249
 msgid "`Stored Procedure Parameters`_"
 msgstr ""
 
-#: ../../source/readme.rst:251
+#: ../../source/index.rst:251
 msgid ""
 "The related tutorials links on the bottom of the page are also in the same "
 "series."
 msgstr ""
 
-#: ../../source/readme.rst:253 ../../source/readme.rst:292
-#: ../../source/readme.rst:304 ../../source/readme.rst:371
+#: ../../source/index.rst:253 ../../source/index.rst:292
+#: ../../source/index.rst:304 ../../source/index.rst:371
 msgid "Your SQF code will look something like this:"
 msgstr ""
 
-#: ../../source/readme.rst:264
+#: ../../source/index.rst:264
 msgid ""
 "In this example, \"weapons\" is the database name.  \"CreateNewLoadOut\" is "
 "the MySQL stored procedure.  The parameters as part of the procedure are "
 "formatted and then passed along as the third argument."
 msgstr ""
 
-#: ../../source/readme.rst:274
+#: ../../source/index.rst:274
 msgid "Straight MySQL Queries"
 msgstr ""
 
-#: ../../source/readme.rst:276 ../../source/readme.rst:355
+#: ../../source/index.rst:276 ../../source/index.rst:355
 msgid "This is similar to what you're probably used to.  Commands like:"
 msgstr ""
 
-#: ../../source/readme.rst:283
+#: ../../source/index.rst:283
 msgid ""
 "There are two ways to run SQL queries.  The first way is a little simpler "
 "and easier on the SQF scripting side. It uses the command "
@@ -400,73 +400,73 @@ msgid ""
 "would recommend the second option."
 msgstr ""
 
-#: ../../source/readme.rst:290 ../../source/readme.rst:369
+#: ../../source/index.rst:290 ../../source/index.rst:369
 msgid "Arma2NETMySQLCommand"
 msgstr ""
 
-#: ../../source/readme.rst:299 ../../source/readme.rst:378
+#: ../../source/index.rst:299 ../../source/index.rst:378
 msgid ""
 "In this example, \"weapons\" is the database name.  The next portion is the "
 "entire SQL query which you will need to create manually.  This will block "
 "until the database call is complete and the result is returned."
 msgstr ""
 
-#: ../../source/readme.rst:302 ../../source/readme.rst:381
+#: ../../source/index.rst:302 ../../source/index.rst:381
 msgid "Arma2NETMySQLCommandAsync"
 msgstr ""
 
-#: ../../source/readme.rst:318 ../../source/readme.rst:397
+#: ../../source/index.rst:318 ../../source/index.rst:397
 msgid ""
 "In this example, \"weapons\" is the database name.  The next portion is the "
 "entire SQL query which you will need to create manually.  You will then need"
 " to loop until the result is returned."
 msgstr ""
 
-#: ../../source/readme.rst:323
+#: ../../source/index.rst:323
 msgid "Connecting to SQLite"
 msgstr ""
 
-#: ../../source/readme.rst:326
+#: ../../source/index.rst:326
 msgid "There is one way to run SQLite queries with this plugin."
 msgstr ""
 
-#: ../../source/readme.rst:330
+#: ../../source/index.rst:330
 msgid "SQLite Database Setup"
 msgstr ""
 
-#: ../../source/readme.rst:332
+#: ../../source/index.rst:332
 msgid ""
 "Databases need to be in your root Arma2/Arma3 folder or the appdata sqlite "
 "folder.  See the above notes on `Installation and Setup` for details."
 msgstr ""
 
-#: ../../source/readme.rst:335
+#: ../../source/index.rst:335
 msgid ""
 "SQLite databases are just a single file that have .sqlite as a file ending."
 "  This file stores the database structure as well as the data."
 msgstr ""
 
-#: ../../source/readme.rst:338
+#: ../../source/index.rst:338
 msgid "Here is an example SQLite database location using appdata:"
 msgstr ""
 
-#: ../../source/readme.rst:344
+#: ../../source/index.rst:344
 msgid ""
 "Make sure your database name matches the name in the Databases.txt file "
 "(minus the .sqlite ending)."
 msgstr ""
 
-#: ../../source/readme.rst:346
+#: ../../source/index.rst:346
 msgid ""
 "If you need a client for creating and managing SQLite databases, there is a "
 "nice `SQLite Firefox plugin`_ that works well."
 msgstr ""
 
-#: ../../source/readme.rst:353
+#: ../../source/index.rst:353
 msgid "SQLite Queries"
 msgstr ""
 
-#: ../../source/readme.rst:362
+#: ../../source/index.rst:362
 msgid ""
 "There are two ways to run SQL queries.  The first way is a little simpler "
 "and easier on the SQF scripting side. It uses the command "
@@ -479,15 +479,15 @@ msgid ""
 "would recommend the second option."
 msgstr ""
 
-#: ../../source/readme.rst:383
+#: ../../source/index.rst:383
 msgid "Your SQF will look something like this:"
 msgstr ""
 
-#: ../../source/readme.rst:402
+#: ../../source/index.rst:402
 msgid "Load a Mission"
 msgstr ""
 
-#: ../../source/readme.rst:404
+#: ../../source/index.rst:404
 msgid ""
 "You can use the instructions listed above to create your own missions.  "
 "There are two missions provided as examples, one for Arma2 and one for "
@@ -496,17 +496,17 @@ msgid ""
 "good place to start if you are a mission maker."
 msgstr ""
 
-#: ../../source/readme.rst:419
+#: ../../source/index.rst:419
 msgid "Known Issues"
 msgstr ""
 
-#: ../../source/readme.rst:423
+#: ../../source/index.rst:423
 msgid ""
 "Arma2NETMySQLPlugin uses the `CallExtension`_ function, however, there are "
 "some `technical considerations`_ as part of this."
 msgstr ""
 
-#: ../../source/readme.rst:426
+#: ../../source/index.rst:426
 msgid ""
 "Returning results via callExtension in Arma 2 beta 97299 (or higher) or Arma"
 " 3 has a limit of 16383 (~16 KB) characters.  If you try to run a query that"
@@ -516,13 +516,13 @@ msgid ""
 "`SQLite Limit parameter`_ to limit the number of returned entries."
 msgstr ""
 
-#: ../../source/readme.rst:432
+#: ../../source/index.rst:432
 msgid ""
 "This `CallExtension`_ limit is part of the Arma2/Arma3 game engine so I "
 "don't have any control over changing it."
 msgstr ""
 
-#: ../../source/readme.rst:437
+#: ../../source/index.rst:437
 msgid ""
 "Currently, commas cannot be used as data to be sent back and forth because "
 "the system uses commas to identify splitting up the database columns.  If "
@@ -530,7 +530,7 @@ msgid ""
 " would certainly appreciate it."
 msgstr ""
 
-#: ../../source/readme.rst:443
+#: ../../source/index.rst:443
 msgid ""
 "The `CallExtension`_ method will block on the server until a result is "
 "returned.  Some people were reporting problems when running this plugin on "
@@ -538,7 +538,7 @@ msgid ""
 "lagging the server and causing players issues."
 msgstr ""
 
-#: ../../source/readme.rst:447
+#: ../../source/index.rst:447
 msgid ""
 "If you are doing this and using Arma2NETMySQLCommand and need super high "
 "performance, consider switching over to the asynchronous method of using "
@@ -547,39 +547,39 @@ msgid ""
 "significantly less lag."
 msgstr ""
 
-#: ../../source/readme.rst:461
+#: ../../source/index.rst:461
 msgid "Troubleshooting"
 msgstr ""
 
-#: ../../source/readme.rst:463
+#: ../../source/index.rst:463
 msgid "Stuck?  First check the Arma2NETMySQL log files."
 msgstr ""
 
-#: ../../source/readme.rst:470
+#: ../../source/index.rst:470
 msgid "The plugin creates a new log file each time it's run."
 msgstr ""
 
-#: ../../source/readme.rst:472
+#: ../../source/index.rst:472
 msgid ""
 "If you don't have a logs folder or it's empty, this is a sign the plugin "
 "isn't running and Arma2NET could not load it."
 msgstr ""
 
-#: ../../source/readme.rst:475
+#: ../../source/index.rst:475
 msgid "Arma2NET has log files here:"
 msgstr ""
 
-#: ../../source/readme.rst:481
+#: ../../source/index.rst:481
 msgid ""
 "This will tell you if the plugin is loading appropriately.  If it's not, "
 "check your Arma2/Arma3 launcher and make sure that is all correct."
 msgstr ""
 
-#: ../../source/readme.rst:484
+#: ../../source/index.rst:484
 msgid "Lastly you can check the Arma2/Arma3 RPT log file."
 msgstr ""
 
-#: ../../source/readme.rst:490
+#: ../../source/index.rst:490
 msgid ""
 "These can get very long so scroll all the way to the bottom to see the "
 "latest run.  This will tell you if you have an error in your SQF scripting "
@@ -587,7 +587,7 @@ msgid ""
 "(and Vista?) and may be different for other versions of Windows."
 msgstr ""
 
-#: ../../source/readme.rst:496
+#: ../../source/index.rst:496
 msgid ""
 "Windows 7 (and other Windows versions?) can sometimes block DLLs from "
 "running. If you right click the .dll and click on properties at the bottom "
@@ -597,7 +597,7 @@ msgid ""
 " compile the source code and generate the DLL yourself."
 msgstr ""
 
-#: ../../source/readme.rst:503
+#: ../../source/index.rst:503
 msgid ""
 "**This is the most common problem that people have.** This plugin requires "
 "both the MySQL and SQLite C# connector libraries to be installed.  The "
@@ -608,27 +608,27 @@ msgid ""
 " that this plugin was compiled against otherwise it won't work."
 msgstr ""
 
-#: ../../source/readme.rst:512
+#: ../../source/index.rst:512
 msgid ""
 "If you are getting a returned result of \"Error\" in the game, this probably"
 " means there's something wrong with your query.  Check the logs to track "
 "down the problem."
 msgstr ""
 
-#: ../../source/readme.rst:516
+#: ../../source/index.rst:516
 msgid ""
 "If you're still having problems, please go back and double check that you "
 "did everything correctly.  If you skipped a step or got an error and just "
 "decided to continue to the next step, nothing will work."
 msgstr ""
 
-#: ../../source/readme.rst:519
+#: ../../source/index.rst:519
 msgid ""
 "If you found a bug in the plugin, please create an issue ticket on the "
 "`Github issues`_ page."
 msgstr ""
 
-#: ../../source/readme.rst:521
+#: ../../source/index.rst:521
 msgid ""
 "If you're still stuck, please post on the `Arma2NETMySQLPlugin BIS Forums "
 "Thread`_. The forums are preferred over emailing me because the question and"
@@ -637,18 +637,18 @@ msgid ""
 "will have problems helping you."
 msgstr ""
 
-#: ../../source/readme.rst:532
+#: ../../source/index.rst:532
 msgid "For Developers"
 msgstr ""
 
-#: ../../source/readme.rst:534
+#: ../../source/index.rst:534
 msgid ""
 "To examine the sourcecode, open up the provided Visual Studio project.  To "
 "compile the code into a .DLL check to make sure the references are pointing "
 "to the correct place."
 msgstr ""
 
-#: ../../source/readme.rst:537
+#: ../../source/index.rst:537
 msgid ""
 "MySql.Data needs to be listed in the references and should point to "
 "\"MySql.Data.dll\" which is provided by the MySQL Connector listed above.  "
@@ -656,7 +656,7 @@ msgid ""
 "provided by the SQLite precompiled binaries listed above."
 msgstr ""
 
-#: ../../source/readme.rst:541
+#: ../../source/index.rst:541
 msgid ""
 "Once these are set, you can compile the sourcecode.  The resulting .DLL "
 "should be placed in the Arma2NET Addins folder here: "
@@ -665,7 +665,7 @@ msgid ""
 "folder as well."
 msgstr ""
 
-#: ../../source/readme.rst:545
+#: ../../source/index.rst:545
 msgid ""
 "For easy testing, you can use Arma2NetExplorer.exe provided by Arma2NET.  "
 "After launching this program, click \"list addins\" to see if Arma2NETMySQL "
@@ -673,139 +673,139 @@ msgid ""
 "above documentation."
 msgstr ""
 
-#: ../../source/readme.rst:548
+#: ../../source/index.rst:548
 msgid "For example:"
 msgstr ""
 
-#: ../../source/readme.rst:555
+#: ../../source/index.rst:555
 msgid ""
 "If the Databases.txt file and your database is setup correctly, you can run "
 "queries here and see the result.  This is extremely helpful for testing "
 "without having to load up Arma2/Arma3."
 msgstr ""
 
-#: ../../source/readme.rst:558
+#: ../../source/index.rst:558
 msgid ""
 "Make sure if you make a change to the C# code that you recompile and copy "
 "over the .DLL to the appropriate folder, otherwise you'll be running the old"
 " version and won't see any changes."
 msgstr ""
 
-#: ../../source/readme.rst:564
+#: ../../source/index.rst:564
 msgid "Changelog"
 msgstr ""
 
-#: ../../source/readme.rst:566
+#: ../../source/index.rst:566
 msgid "Version 1.0 beta"
 msgstr ""
 
-#: ../../source/readme.rst:568
+#: ../../source/index.rst:568
 msgid "Currently in testing"
 msgstr ""
 
-#: ../../source/readme.rst:573
+#: ../../source/index.rst:573
 msgid "Translations"
 msgstr ""
 
-#: ../../source/readme.rst:575
+#: ../../source/index.rst:575
 msgid ""
 "All translations of this readme to other languages besides English are "
 "provided by the community.  I take no responsibility for the accuracy of the"
 " translations."
 msgstr ""
 
-#: ../../source/readme.rst:578
+#: ../../source/index.rst:578
 msgid ""
 "**If you would like to contribute translations, I would really appreciate "
 "it!**"
 msgstr ""
 
-#: ../../source/readme.rst:582
+#: ../../source/index.rst:582
 msgid "How To Contribute Translations"
 msgstr ""
 
-#: ../../source/readme.rst:584
+#: ../../source/index.rst:584
 msgid ""
 "This readme uses the `Sphinx Documentation`_ system.  It uses a simple "
 "markdown format.  Some of the translation strings have markdown inside the "
 "string so make sure to keep that intact."
 msgstr ""
 
-#: ../../source/readme.rst:588
+#: ../../source/index.rst:588
 msgid "We use .po/.pot files and gettext for translating strings."
 msgstr ""
 
-#: ../../source/readme.rst:590
+#: ../../source/index.rst:590
 msgid ""
 "The easiest option is to do the translations right in your web browser. You "
 "can join the `Poeditor`_ website and start right now."
 msgstr ""
 
-#: ../../source/readme.rst:593
+#: ../../source/index.rst:593
 msgid ""
 "The second option is to fork the project on the `Arma2NETMySQLPlugin Github "
 "Page`_ and use an editor for the .po files and create the translations."
 msgstr ""
 
-#: ../../source/readme.rst:596
+#: ../../source/index.rst:596
 msgid "The .po files can be found here:"
 msgstr ""
 
-#: ../../source/readme.rst:602
+#: ../../source/index.rst:602
 msgid "The base .pot file can be found here:"
 msgstr ""
 
-#: ../../source/readme.rst:608
+#: ../../source/index.rst:608
 msgid ""
 "An excellent cross-platform editor for .po files is `Poedit`_.  Then, submit"
 " a pull request and I will merge them in.  See the `Poedit Wikipedia page`_ "
 "and `Gettext Wikipedia page`_ for more details."
 msgstr ""
 
-#: ../../source/readme.rst:613
+#: ../../source/index.rst:613
 msgid ""
 "If you have any questions about translations, please ask on the "
 "`Arma2NETMySQLPlugin BIS Forums Thread`_."
 msgstr ""
 
-#: ../../source/readme.rst:626
+#: ../../source/index.rst:626
 msgid "License"
 msgstr ""
 
-#: ../../source/readme.rst:628
+#: ../../source/index.rst:628
 msgid "Arma2NETMySQL is licensed under the GPL version 3 (see license.txt)."
 msgstr ""
 
-#: ../../source/readme.rst:630
+#: ../../source/index.rst:630
 msgid ""
 "If you would like to contribute code or fixes, please fork the project on "
 "Github and submit a pull request."
 msgstr ""
 
-#: ../../source/readme.rst:637
+#: ../../source/index.rst:637
 msgid "Thanks To"
 msgstr ""
 
-#: ../../source/readme.rst:639
+#: ../../source/index.rst:639
 msgid "Scott_NZ for `Arma2NET`_"
 msgstr ""
 
-#: ../../source/readme.rst:640
+#: ../../source/index.rst:640
 msgid "Hatchet, Robalo, Buehgler and all the guys over at `AlphaSquad`_"
 msgstr ""
 
-#: ../../source/readme.rst:641
+#: ../../source/index.rst:641
 msgid "JMan at `Kellys Heroes`_"
 msgstr ""
 
-#: ../../source/readme.rst:642
+#: ../../source/index.rst:642
 msgid "All the testers"
 msgstr ""
 
-#: ../../source/readme.rst:643
+#: ../../source/index.rst:643
 msgid "All the translators"
 msgstr ""
 
-#: ../../source/readme.rst:644
+#: ../../source/index.rst:644
 msgid "`Bohemia Interactive`_"
 msgstr ""
