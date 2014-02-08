@@ -57,7 +57,7 @@ namespace Arma2NETMySQLPlugin
              * The last character is reserved for null
              * 
              */
-            string formatted = Format.ObjectAsSqf(check);
+            string formatted = Util.ObjectAsSqf(check);
             int size = Encoding.UTF8.GetByteCount(formatted.ToCharArray());
             //Logger.addMessage(Logger.LogType.Info, "Size length: " + size);
             if (size > max_length) {
