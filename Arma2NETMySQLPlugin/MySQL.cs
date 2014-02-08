@@ -184,7 +184,7 @@ namespace Arma2NETMySQLPlugin
                 command.CommandText = mysql_command;
                 yield return RunOnDatabase(command, maxResultSize);
             }
-            //Logger.addMessage(Logger.LogType.Info, "yield breaking in RunProcedure");
+            //Logger.addMessage(Logger.LogType.Info, "yield breaking in RunCommand");
             yield break;
         }
 
@@ -253,7 +253,7 @@ namespace Arma2NETMySQLPlugin
                     }
                 }
             }
-            //Logger.addMessage(Logger.LogType.Info, "Returning error from RunProcedure");
+            //Logger.addMessage(Logger.LogType.Info, "Returning error from RunOnDatabase");
             return new string[][] { new[] { "Error" } };
         }
     }
