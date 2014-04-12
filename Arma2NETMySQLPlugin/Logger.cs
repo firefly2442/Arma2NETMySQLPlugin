@@ -118,7 +118,7 @@ namespace Arma2NETMySQLPlugin
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("EXCEPTION: An exception occured while stopping the logger.\n**\t{0}", ex.ToString());
+                    Console.WriteLine("EXCEPTION: An exception occurred while stopping the logger.\n**\t{0}", ex.ToString());
                 }
             }
         }
