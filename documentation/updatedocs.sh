@@ -14,6 +14,10 @@
 #locale_dirs = ['locale/']   # path is example but recommended.
 #gettext_compact = False     # optional.
 
+#the sphinx build seems to hang when changes are made, this clears it up and allows it
+#to continue running
+rm -rf ./build/locale/.doctrees/
+
 #Create or update .pot file (found in build directory)
 make gettext
 
