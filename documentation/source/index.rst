@@ -135,9 +135,18 @@ Copy Files and Setup Folder Structure
 -----------------------------------------------
 
 Arma2NETMySQL looks two places for the relevant files and folders.  First, it checks the Arma2/Arma3 root directory.  If it can't find
-them there, it looks in the AppData folder.  I would recommend using the AppData location if possible.  This makes future upgrades
+them there, it looks in the AppData folder.  I would recommend using the AppData location if possible because of a possible
+security issue with the Databases.config file.  This also makes future upgrades
 and changes easier to manage.  However, some people on limited rental servers may need to put them in the root Arma2/Arma3 folder.
 Make sure the file/folder structure matches one of these.
+
+.. warning:: If you're running a rental server and don't have access to the AppData folder, there is a possible security
+	hole with having your Databases.config file in the root directory.  Malicious users could use `loadFile`_ to read
+	your Databases.config file.  Given this, they would have access to your database username and password.  To prevent this,
+	use the `server.cfg`_ `allowedLoadFileExtensions` variable and make sure the .config file extension is removed.
+
+.. _loadFile: https://community.bistudio.com/wiki/loadFile
+.. _server.cfg: https://community.bistudio.com/wiki/server.cfg#Server_Security
 
 .. warning:: Don't put some files in one location and some in the other, that could result in problems.
 
@@ -146,14 +155,14 @@ This is just an example location for Arma 2, you'll have to figure out where you
 .. code-block:: html
 
 	E:\Program Files\Steam\steamapps\common\arma 2 operation arrowhead\
-	E:\Program Files\Steam\steamapps\common\arma 2 operation arrowhead\Databases.txt
+	E:\Program Files\Steam\steamapps\common\arma 2 operation arrowhead\Databases.config
 	E:\Program Files\Steam\steamapps\common\arma 2 operation arrowhead\sqlite\
 	E:\Program Files\Steam\steamapps\common\arma 2 operation arrowhead\logs\
 
 .. code-block:: html
 
 	C:\Users\Yourname\AppData\Local\Arma2NETMySQL\
-	C:\Users\Yourname\AppData\Local\Arma2NETMySQL\Databases.txt
+	C:\Users\Yourname\AppData\Local\Arma2NETMySQL\Databases.config
 	C:\Users\Yourname\AppData\Local\Arma2NETMySQL\sqlite\
 	C:\Users\Yourname\AppData\Local\Arma2NETMySQL\logs\
 
@@ -174,10 +183,10 @@ This is just an example location for Arma 2, you'll have to figure out where you
 		E:\Program Files\Steam\steamapps\common\arma 2 operation arrowhead\@Arma2NET\AddIns\Arma2NETMySQLPlugin\System.Data.SQLite.dll
 
 -----------------------------------------------
-Setup the Databases.txt File
+Setup the Databases.config File
 -----------------------------------------------
 
-Edit the Databases.txt file. This file requires separate lines for each database (even if they're on the same host).
+Edit the Databases.config file. This file requires separate lines for each database (even if they're on the same host).
 Any line that starts with a pound/hash sign "#" is considered a comment.
 
 .. warning:: This database text file stores usernames and passwords in plaintext.  **Be very careful about who has access to this!**  In addition,
@@ -188,7 +197,7 @@ Any line that starts with a pound/hash sign "#" is considered a comment.
 	are no checks for `SQL injection`_ attacks so be extremely
 	careful about how you allow users to input information that will run against the database.
 	
-Put the Databases.txt file in the appropriate location given the folder structure
+Put the Databases.config file in the appropriate location given the folder structure
 that you decided on above.
 
 .. _SQL injection: https://en.wikipedia.org/wiki/SQL_injection
@@ -341,7 +350,7 @@ Here is an example SQLite database location using appdata:
 
 	C:\Users\Yourname\AppData\Local\Arma2NETMySQL\sqlite\weapons.sqlite
 
-Make sure your database name matches the name in the Databases.txt file (minus the .sqlite ending).
+Make sure your database name matches the name in the Databases.config file (minus the .sqlite ending).
 
 If you need a client for creating and managing SQLite databases, there is a nice
 `SQLite Firefox plugin`_ that works well.
@@ -552,7 +561,7 @@ For example:
 
 	Arma2NETMySQLCommand ['weapons', 'SELECT * FROM users LIMIT 3']
 
-If the Databases.txt file and your database is setup correctly, you can run queries here and see the result.  This is
+If the Databases.config file and your database is setup correctly, you can run queries here and see the result.  This is
 extremely helpful for testing without having to load up Arma2/Arma3.
 
 Make sure if you make a change to the C# code that you recompile and copy
