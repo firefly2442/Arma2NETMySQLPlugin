@@ -76,7 +76,7 @@ namespace Arma2NETMySQLPlugin
                 }
                 catch (Exception ex)
                 {
-                    Logger.addMessage(Logger.LogType.Info, "Unable to open connection to MySQL database, trying again in 10 seconds." + ex.ToString());
+                    Logger.addMessage(Logger.LogType.Error, "Unable to open connection to MySQL database, trying again in 10 seconds." + ex.ToString());
                     Thread.Sleep(10000);
                 }
             }
