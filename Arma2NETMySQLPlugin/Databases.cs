@@ -57,10 +57,15 @@ namespace Arma2NETMySQLPlugin
                     string[] split = line.Split(',');
                     if (split.Length == 6)
                     {
-                        split[0] = split[0].ToLower();
-                        Logger.addMessage(Logger.LogType.Info, "Type: " + split[0] + " Database: " + split[1] + " IPAddress: " + split[2] + " Port: " + split[3] + " Username: " + split[4] + " Password: NotShownForSecurityReasons");
-                        DatabaseObject temp = new DatabaseObject(new string[6] {split[0], split[1], split[2], split[3], split[4], split[5]});
-                        databaseList.Add(temp);
+                        //check to make sure the "root" user is not being used
+                        if (split[4].ToLower() == "root") {
+                            Logger.addMessage(Logger.LogType.Error, "Using 'root' as a user is not allowed for security purposes.");
+                        } else {
+                            split[0] = split[0].ToLower();
+                            Logger.addMessage(Logger.LogType.Info, "Type: " + split[0] + " Database: " + split[1] + " IPAddress: " + split[2] + " Port: " + split[3] + " Username: " + split[4] + " Password: NotShownForSecurityReasons");
+                            DatabaseObject temp = new DatabaseObject(new string[6] { split[0], split[1], split[2], split[3], split[4], split[5] });
+                            databaseList.Add(temp);
+                        }
                     }
                     else if (split.Length == 2)
                     {

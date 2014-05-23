@@ -57,8 +57,10 @@ namespace Arma2NETMySQLPlugin
                 Logger.addMessage(Logger.LogType.Info, "Loading databases...");
                 SQL.dbs = new Databases();
 
-                //set mutex so we know we've started everything up
-                started_up = true;
+                if (SQL.dbs != null) {
+                    //set mutex so we know we've started everything up
+                    started_up = true;
+                }
             }
         }
 

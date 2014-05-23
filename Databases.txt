@@ -3,6 +3,7 @@
 # Make sure each of your database connections doesn't have a "#" in front!
 # Put each database connection you want on a separate line
 # The databasename MUST be unique!
+# Using the "root" user is NOT allowed
 # For an example, see the following
 #databasetype,databasename,ipaddress,port,username,password
 #
