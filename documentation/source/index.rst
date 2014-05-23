@@ -191,7 +191,7 @@ Any line that starts with a pound/hash sign "#" is considered a comment.
 
 .. warning:: This database text file stores usernames and passwords in plaintext.  **Be very careful about who has access to this!**  In addition,
 	Arma2NETMySQL does not limit the actions that can be performed on the database.  For security reasons, create a username that is locked down
-	and only has access to a single database.  **We strongly recommend NOT connecting to the database as the root user.**
+	and only has access to a single database.  **Connecting to the database as the root user is flagged and NOT allowed through the plugin.**
 	This is generally a really bad choice because this user has full access.
 	**We will not be responsible if something gets deleted!**  Please note that there
 	are no checks for `SQL injection`_ attacks so be extremely
