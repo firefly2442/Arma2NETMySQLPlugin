@@ -60,7 +60,7 @@ namespace Arma2NETMySQLPlugin
                 }
                 else
                 {
-                    Logger.addMessage(Logger.LogType.Warning, "The database: " + database + " is not loaded in through the Databases.txt file.");
+                    Logger.addMessage(Logger.LogType.Warning, "The database: " + database + " is not loaded in through the Databases.config file.");
                 }
 
                 return "Error";
@@ -101,7 +101,7 @@ namespace Arma2NETMySQLPlugin
                 }
                 else
                 {
-                    Logger.addMessage(Logger.LogType.Warning, "The database: " + database + " is not loaded in through the Databases.txt file.");
+                    Logger.addMessage(Logger.LogType.Warning, "The database: " + database + " is not loaded in through the Databases.config file.");
                 }
 
                 return "Error";
@@ -157,7 +157,7 @@ namespace Arma2NETMySQLPlugin
                 }
                 else
                 {
-                    Logger.addMessage(Logger.LogType.Warning, "The database: " + database + " is not loaded in through the Databases.txt file.");
+                    Logger.addMessage(Logger.LogType.Warning, "The database: " + database + " is not loaded in through the Databases.config file.");
                 }
 
                 return "Error";

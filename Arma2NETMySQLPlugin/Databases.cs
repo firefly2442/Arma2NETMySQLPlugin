@@ -34,17 +34,17 @@ namespace Arma2NETMySQLPlugin
             string line;
             string databasesFileLocation = null;
             //check the Arma2 root directory first
-            if (File.Exists("Databases.txt")) {
-                databasesFileLocation = Path.GetFullPath("Databases.txt");
+            if (File.Exists("Databases.config")) {
+                databasesFileLocation = Path.GetFullPath("Databases.config");
             } else {
-                Logger.addMessage(Logger.LogType.Warning, "Unable to find the Databases.txt file here: " + Path.GetFullPath("Databases.txt"));
-                databasesFileLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Arma2NETMySQL/Databases.txt");
+                Logger.addMessage(Logger.LogType.Warning, "Unable to find the Databases.config file here: " + Path.GetFullPath("Databases.config"));
+                databasesFileLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Arma2NETMySQL/Databases.config");
                 if (!File.Exists(databasesFileLocation))
                 {
-                    Logger.addMessage(Logger.LogType.Error, "Unable to find the Databases.txt here: " + databasesFileLocation);
+                    Logger.addMessage(Logger.LogType.Error, "Unable to find the Databases.config here: " + databasesFileLocation);
                 }
             }
-            Logger.addMessage(Logger.LogType.Info, "Databases.txt file loading in from: " + databasesFileLocation);
+            Logger.addMessage(Logger.LogType.Info, "Databases.config file loading in from: " + databasesFileLocation);
 
             StreamReader sr = File.OpenText(databasesFileLocation);
             line = sr.ReadLine();
@@ -76,7 +76,7 @@ namespace Arma2NETMySQLPlugin
                     }
                     else if (line.Contains(","))
                     {
-                        Logger.addMessage(Logger.LogType.Error, "Unable to parse line: " + line + " in Databases.txt file.");
+                        Logger.addMessage(Logger.LogType.Error, "Unable to parse line: " + line + " in Databases.config file.");
                     }
                 }
                 line = sr.ReadLine();
