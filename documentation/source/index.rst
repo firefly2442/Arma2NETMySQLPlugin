@@ -12,7 +12,7 @@ Links:
 
 * `Arma2NETMySQLPlugin Github Page`_
 * `Arma2NETMySQLPlugin BIS Forums Thread`_
-* `Arma 2 Example Mission`_
+* `Arma 2 Example Mission`_ (currently not up-to-date with the latest changes)
 * `Arma 3 Example Mission`_
 
 .. _Arma2NETMySQLPlugin Github Page: https://github.com/firefly2442/Arma2NETMySQLPlugin
@@ -416,7 +416,7 @@ mission has a simple crate and GUI interface for loading and saving weapon/kit
 loadouts into a MySQL or SQLite database.  This is a good place to start if you are a mission
 maker.
 
-* `Arma 2 Example Mission`_
+* `Arma 2 Example Mission`_ (currently not up-to-date with the latest changes)
 * `Arma 3 Example Mission`_
 
 .. _Arma 2 Example Mission: https://github.com/firefly2442/Arma2NetMySQLPlugin-ExampleMission
