@@ -35,14 +35,12 @@ namespace Arma2NETMySQLPlugin
             //if we haven't setup the database connection and such yet, this will do it
             Startup.StartupConnection();
 
-            args = Util.stripSquareBrackets(args);
-            List<string> arguments = args.Split(',').ToList<string>();
-
-            if (arguments.Count >= 2 && arguments[0] != null && arguments[1] != null)
+            IList<object> arguments;
+            if (Format.TrySqfAsCollection(args, out arguments) && arguments.Count >= 2 && arguments[0] != null && arguments[1] != null)
             {
-                string database = Util.stripQuotes(arguments[0].Trim()).Trim();
-                string procedure = Util.stripQuotes(arguments[1].Trim()).Trim();
-                string parameters = Util.stripQuotes(arguments[2].Trim()).Trim();
+                string database = arguments[0] as string;
+                string procedure = arguments[1] as string;
+                string parameters = arguments[2] as string;
                 parameters = Util.stripSquareBrackets(parameters);
 
                 List<string> split = new List<string>();
@@ -56,14 +54,14 @@ namespace Arma2NETMySQLPlugin
                 if (SQL.dbs.SQLProviderExists(database))
                 {
                     IEnumerable<string[][]> returned = SQL.dbs.getSQLProvider(database).RunProcedure(procedure, split.ToArray(), maxResultSize);
-                    return Util.ObjectAsSqf(returned);
+                    return Format.ObjectAsSqf(returned);
                 }
                 else
                 {
                     Logger.addMessage(Logger.LogType.Warning, "The database: " + database + " is not loaded in through the Databases.config file.");
                 }
 
-                return "Error";
+                return Format.ObjectAsSqf("Error");
             }
             else
             {
@@ -84,27 +82,25 @@ namespace Arma2NETMySQLPlugin
             //if we haven't setup the database connection and such yet, this will do it
             Startup.StartupConnection();
 
-            args = Util.stripSquareBrackets(args);
-            List<string> arguments = args.Split(',').ToList<string>();
-
-            if (arguments.Count == 2 && arguments[0] != null && arguments[1] != null)
+            IList<object> arguments;
+            if (Format.TrySqfAsCollection(args, out arguments) && arguments.Count == 2 && arguments[0] != null && arguments[1] != null)
             {
-                string database = Util.stripQuotes(arguments[0].Trim()).Trim();
-                string sql_command = Util.stripQuotes(arguments[1].Trim()).Trim();
+                string database = arguments[0] as string;
+                string sql_command = arguments[1] as string;
 
                 Logger.addMessage(Logger.LogType.Info, "Received - Database: " + database + " SQL Query: " + sql_command);
 
                 if (SQL.dbs.SQLProviderExists(database))
                 {
                     IEnumerable<string[][]> returned = SQL.dbs.getSQLProvider(database).RunCommand(sql_command, maxResultSize);
-                    return Util.ObjectAsSqf(returned);
+                    return Format.ObjectAsSqf(returned);
                 }
                 else
                 {
                     Logger.addMessage(Logger.LogType.Warning, "The database: " + database + " is not loaded in through the Databases.config file.");
                 }
 
-                return "Error";
+                return Format.ObjectAsSqf("Error");
             }
             else
             {
@@ -134,13 +130,11 @@ namespace Arma2NETMySQLPlugin
             //if we haven't setup the database connection and such yet, this will do it
             Startup.StartupConnection();
 
-            args = Util.stripSquareBrackets(args);
-            List<string> arguments = args.Split(',').ToList<string>();
-
-            if (arguments.Count == 2 && arguments[0] != null && arguments[1] != null)
+            IList<object> arguments;
+            if (Format.TrySqfAsCollection(args, out arguments) && arguments.Count == 2 && arguments[0] != null && arguments[1] != null)
             {
-                string database = Util.stripQuotes(arguments[0].Trim()).Trim();
-                string sql_command = Util.stripQuotes(arguments[1].Trim()).Trim();
+                string database = arguments[0] as string;
+                string sql_command = arguments[1] as string;
 
                 Logger.addMessage(Logger.LogType.Info, "Received - Database: " + database + " SQL Query: " + sql_command);
 
@@ -152,19 +146,25 @@ namespace Arma2NETMySQLPlugin
                     //however, because on the SQF side, we check for this in a while loop so we know the database process has completed, we can
                     //just return an empty array
                     if (returned.ToString() == "")
-                        return Util.ObjectAsSqf("[]");
-                    return Util.ObjectAsSqf(returned);
+                    {
+                        Logger.addMessage(Logger.LogType.Info, "Returning: []");
+                        return Format.ObjectAsSqf("[]");
+                    }
+                    Logger.addMessage(Logger.LogType.Warning, "Returning: " + Format.ObjectAsSqf(returned));
+                    return Format.ObjectAsSqf(returned);
                 }
                 else
                 {
                     Logger.addMessage(Logger.LogType.Warning, "The database: " + database + " is not loaded in through the Databases.config file.");
                 }
 
-                return "Error";
+                Logger.addMessage(Logger.LogType.Warning, "Returning: Error");
+                return Format.ObjectAsSqf("Error");
             }
             else
             {
                 Logger.addMessage(Logger.LogType.Error, "The number and/or format of the arguments passed in to Arma2NETMySQLCommandAsync doesn't match.");
+                Logger.addMessage(Logger.LogType.Error, "Argument count: " + arguments.Count.ToString() + " arguments: " + string.Join(",", arguments.ToArray()));
                 throw new ArgumentException();
             }
         }
