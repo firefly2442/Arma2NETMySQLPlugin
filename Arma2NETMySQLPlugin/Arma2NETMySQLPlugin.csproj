@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arma2NETMySQLPlugin.cs" />
+    <Compile Include="Format.cs" />
     <Compile Include="SQLite.cs" />
     <Compile Include="MySQL.cs" />
     <Compile Include="Startup.cs" />
