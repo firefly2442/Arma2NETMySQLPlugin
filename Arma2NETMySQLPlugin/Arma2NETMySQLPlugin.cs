@@ -60,14 +60,12 @@ namespace Arma2NETMySQLPlugin
                 {
                     Logger.addMessage(Logger.LogType.Warning, "The database: " + database + " is not loaded in through the Databases.config file.");
                 }
-
-                return Format.ObjectAsSqf("Error");
             }
             else
             {
                 Logger.addMessage(Logger.LogType.Error, "The number and/or format of the arguments passed in to Arma2NETMySQL doesn't match.");
-                throw new ArgumentException();
             }
+            return Format.ObjectAsSqf("Error");
         }
     }
 
@@ -99,14 +97,12 @@ namespace Arma2NETMySQLPlugin
                 {
                     Logger.addMessage(Logger.LogType.Warning, "The database: " + database + " is not loaded in through the Databases.config file.");
                 }
-
-                return Format.ObjectAsSqf("Error");
             }
             else
             {
                 Logger.addMessage(Logger.LogType.Error, "The number and/or format of the arguments passed in to Arma2NETMySQLCommand doesn't match.");
-                throw new ArgumentException();
             }
+            return Format.ObjectAsSqf("Error");
         }
     }
 
@@ -127,46 +123,46 @@ namespace Arma2NETMySQLPlugin
         //"Arma2NET" callExtension "<Arma2NetMySQL> [arguments]"
         public override string Invoke(string args, int maxResultSize)
         {
-            //if we haven't setup the database connection and such yet, this will do it
-            Startup.StartupConnection();
-
-            IList<object> arguments;
-            if (Format.TrySqfAsCollection(args, out arguments) && arguments.Count == 2 && arguments[0] != null && arguments[1] != null)
+            //see AsyncTestAddin.cs in Arma2NET for an async example
+            if (args != null)
             {
-                string database = arguments[0] as string;
-                string sql_command = arguments[1] as string;
+                //if we haven't setup the database connection and such yet, this will do it
+                Startup.StartupConnection();
 
-                Logger.addMessage(Logger.LogType.Info, "Received - Database: " + database + " SQL Query: " + sql_command);
-
-                if (SQL.dbs.SQLProviderExists(database))
+                IList<object> arguments;
+                if (Format.TrySqfAsCollection(args, out arguments) && arguments.Count == 2 && arguments[0] != null && arguments[1] != null)
                 {
-                    IEnumerable<string[][]> returned = SQL.dbs.getSQLProvider(database).RunCommand(sql_command, maxResultSize);
-                    //the following is needed because we need to return something even if there is nothing to return
-                    //for example, an SQL DELETE call will go off and return ""
-                    //however, because on the SQF side, we check for this in a while loop so we know the database process has completed, we can
-                    //just return an empty array
-                    if (returned.ToString() == "")
+                    string database = arguments[0] as string;
+                    string sql_command = arguments[1] as string;
+
+                    Logger.addMessage(Logger.LogType.Info, "Received - Database: " + database + " SQL Query: " + sql_command);
+
+                    if (SQL.dbs.SQLProviderExists(database))
                     {
-                        Logger.addMessage(Logger.LogType.Info, "Returning: []");
-                        return Format.ObjectAsSqf("[]");
+                        IEnumerable<string[][]> returned = SQL.dbs.getSQLProvider(database).RunCommand(sql_command, maxResultSize);
+                        //the following is needed because we need to return something even if there is nothing to return
+                        //for example, an SQL DELETE call will go off and return ""
+                        //however, because on the SQF side, we check for this in a while loop so we know the database process has completed, we can
+                        //just return an empty array
+                        if (returned.ToString() == "")
+                        {
+                            //Logger.addMessage(Logger.LogType.Info, "Returning: []");
+                            return Format.ObjectAsSqf("[]");
+                        }
+                        //Logger.addMessage(Logger.LogType.Info, "Returning: " + Format.ObjectAsSqf(returned));
+                        return Format.ObjectAsSqf(returned);
                     }
-                    Logger.addMessage(Logger.LogType.Warning, "Returning: " + Format.ObjectAsSqf(returned));
-                    return Format.ObjectAsSqf(returned);
+                    else
+                    {
+                        Logger.addMessage(Logger.LogType.Warning, "The database: " + database + " is not loaded in through the Databases.config file.");
+                    }
                 }
                 else
                 {
-                    Logger.addMessage(Logger.LogType.Warning, "The database: " + database + " is not loaded in through the Databases.config file.");
+                    Logger.addMessage(Logger.LogType.Error, "The number and/or format of the arguments passed in to Arma2NETMySQLCommandAsync doesn't match.");
                 }
-
-                Logger.addMessage(Logger.LogType.Warning, "Returning: Error");
-                return Format.ObjectAsSqf("Error");
             }
-            else
-            {
-                Logger.addMessage(Logger.LogType.Error, "The number and/or format of the arguments passed in to Arma2NETMySQLCommandAsync doesn't match.");
-                Logger.addMessage(Logger.LogType.Error, "Argument count: " + arguments.Count.ToString() + " arguments: " + string.Join(",", arguments.ToArray()));
-                throw new ArgumentException();
-            }
+            return Format.ObjectAsSqf("Error");
         }
     }
 }
