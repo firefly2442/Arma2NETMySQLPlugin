@@ -25,6 +25,7 @@ namespace Arma2NETMySQLPlugin
     public class Databases
     {
         private List<DatabaseObject> databaseList = new List<DatabaseObject>();
+        private List<Aliases> aliasList = new List<Aliases>();
 
         public Databases()
         {
@@ -55,7 +56,7 @@ namespace Arma2NETMySQLPlugin
                 {
                     //Separate out the information
                     string[] split = line.Split(',');
-                    if (split.Length == 6)
+                    if (split.Length == 6) //mysql
                     {
                         //check to make sure the "root" user is not being used
                         if (split[4].ToLower() == "root") {
@@ -67,12 +68,18 @@ namespace Arma2NETMySQLPlugin
                             databaseList.Add(temp);
                         }
                     }
-                    else if (split.Length == 2)
+                    else if (split.Length == 2) //sqlite
                     {
                         split[0] = split[0].ToLower();
                         Logger.addMessage(Logger.LogType.Info, "Type: " + split[0] + " Database: " + split[1]);
                         DatabaseObject temp = new DatabaseObject(new string[2] {split[0], split[1]});
                         databaseList.Add(temp);
+                    }
+                    else if (split.Length == 3) //alias
+                    {
+                        Logger.addMessage(Logger.LogType.Info, "Adding database alias from: " + split[1] + " to: " + split[2]);
+                        Aliases aliasObj = new Aliases(split[1], split[2]);
+                        aliasList.Add(aliasObj);
                     }
                     else if (line.Contains(","))
                     {
@@ -99,6 +106,13 @@ namespace Arma2NETMySQLPlugin
 
         public bool SQLProviderExists(string dbname)
         {
+            for (int i = 0; i < aliasList.Count(); i++)
+            {
+                if (aliasList[i].from == dbname)
+                {
+                    return true;
+                }
+            }
             for (int i = 0; i < databaseList.Count(); i++)
             {
                 if (databaseList[i].databasename == dbname)
@@ -111,6 +125,15 @@ namespace Arma2NETMySQLPlugin
 
         public SQL getSQLProvider(string dbname)
         {
+            //check the aliases first
+            for (int i = 0; i < aliasList.Count(); i++)
+            {
+                if (aliasList[i].from == dbname)
+                {
+                    dbname = aliasList[i].to;
+                    break;
+                }
+            }
             for (int i = 0; i < databaseList.Count(); i++)
             {
                 if (databaseList[i].databasename == dbname)

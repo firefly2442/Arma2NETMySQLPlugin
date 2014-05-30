@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aliases.cs" />
     <Compile Include="Arma2NETMySQLPlugin.cs" />
     <Compile Include="Format.cs" />
     <Compile Include="SQLite.cs" />
