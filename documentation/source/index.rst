@@ -28,7 +28,7 @@ The SQLite database runs on the local machine.
 Please read this entire document as it
 has many important details regarding the installation and setup.
 
-.. _Arma2NET: http://dev.withsix.com/projects/a2n
+.. _Arma2NET: http://github.com/ScottNZ/Arma2NET
 .. _MySQL: http://www.mysql.com
 .. _SQLite: http://www.sqlite.org
 
@@ -116,7 +116,6 @@ To run the plugin:
 * `Arma2NET`_, this should already be included if you downloaded a compiled version of this plugin.
 
 
-.. _Arma2NET: http://dev.withsix.com/projects/a2n
 .. _MySQL: http://www.mysql.com
 .. _SQLite: http://www.sqlite.org
 .. _MySQL Connector for .NET: http://www.mysql.com/downloads/connector/net/
@@ -680,7 +679,6 @@ Thanks To
 * All the translators
 * `Bohemia Interactive`_
 
-.. _Arma2NET: http://dev.withsix.com/projects/a2n
 .. _AlphaSquad: http://www.alphasquad.net
 .. _Kellys Heroes: http://www.kellys-heroes.eu
 .. _Bohemia Interactive: http://www.bistudio.com
