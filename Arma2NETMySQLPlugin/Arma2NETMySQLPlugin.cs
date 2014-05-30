@@ -25,7 +25,7 @@ using Arma2Net;
 namespace Arma2NETMySQLPlugin
 {
     //the function name for the plugin (called from Arma side)
-    [Addin("Arma2NETMySQL", Version = "0.1.0.0", Author = "firefly2442", Description = "Runs MySQL procedure commands.")]
+    [Addin("Arma2NETMySQL", Version = "0.2.0.0", Author = "firefly2442", Description = "Runs MySQL procedure commands.")]
     public class Arma2NETMySQLPlugin : Addin
     {
         //This method is called when callExtension is used from SQF:
@@ -70,7 +70,7 @@ namespace Arma2NETMySQLPlugin
     }
 
     //the function name for the plugin (called from Arma side)
-    [Addin("Arma2NETMySQLCommand", Version = "0.1.0.0", Author = "firefly2442", Description = "Runs raw MySQL/SQLite commands")]
+    [Addin("Arma2NETMySQLCommand", Version = "0.2.0.0", Author = "firefly2442", Description = "Runs raw MySQL/SQLite commands")]
     public class Arma2NETMySQLPluginCommand : Addin
     {
         //This method is called when callExtension is used from SQF:
@@ -107,7 +107,7 @@ namespace Arma2NETMySQLPlugin
     }
 
     //the function name for the plugin (called from Arma side)
-    [Addin("Arma2NETMySQLCommandAsync", Version = "0.1.0.0", Author = "firefly2442", Description = "Runs asynchronous raw MySQL/SQLite commands")]
+    [Addin("Arma2NETMySQLCommandAsync", Version = "0.2.0.0", Author = "firefly2442", Description = "Runs asynchronous raw MySQL/SQLite commands")]
     public class Arma2NETMySQLPluginCommandAsync : Addin
     {
         public Arma2NETMySQLPluginCommandAsync()
