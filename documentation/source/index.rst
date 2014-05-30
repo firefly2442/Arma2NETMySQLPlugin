@@ -195,7 +195,7 @@ Any line that starts with a pound/hash sign "#" is considered a comment.
 	This is generally a really bad choice because this user has full access.
 	**We will not be responsible if something gets deleted!**  Please note that there
 	are no checks for `SQL injection`_ attacks so be extremely
-	careful about how you allow users to input information that will run against the database.
+	careful about how you allow users to input information that will run against the database.  See the section on security for additional details.
 	
 Put the Databases.config file in the appropriate location given the folder structure
 that you decided on above.
@@ -268,7 +268,7 @@ Your SQF code will look something like this:
 	_allWeapons select 2, _allWeapons select 3, 
 	_allWeapons select 4, _allWeapons select 5];
 
-	_create = "Arma2Net.Unmanaged" callExtension format ["Arma2NETMySQL ['weapons', 'CreateNewLoadOut', '%1']", _strCreate];
+	_create = "Arma2Net" callExtension format ["Arma2NETMySQL ['weapons', 'CreateNewLoadOut', '%1']", _strCreate];
 
 In this example, "weapons" is the database name.  "CreateNewLoadOut" is the MySQL stored procedure.  The parameters
 as part of the procedure are formatted and then passed along as the third argument.
@@ -303,7 +303,7 @@ Your SQF code will look something like this:
 .. code-block:: python
 	:linenos:
 
-	_selectTest = "Arma2Net.Unmanaged" callExtension "Arma2NETMySQLCommand ['weapons', 'SELECT * FROM users LIMIT 3']";
+	_selectTest = "Arma2Net" callExtension "Arma2NETMySQLCommand ['weapons', 'SELECT * FROM users LIMIT 3']";
 
 In this example, "weapons" is the database name.  The next portion is the entire SQL query which you will need
 to create manually.  This will block until the database call is complete and the result is returned.
@@ -315,12 +315,9 @@ Your SQF code will look something like this:
 .. code-block:: python
 	:linenos:
 
-	_selectTest = nil;
-	while {isNil("_selectTest")} do {
-		_selectTest = "Arma2Net.Unmanaged" callExtension "Arma2NETMySQLCommandAsync ['weapons', 'SELECT * FROM users LIMIT 3']";
-		if (_selectTest == "") then {
-			_selectTest = nil;
-		};
+	_selectTest = "Arma2Net" callExtension "Arma2NETMySQLCommandAsync ['weapons', 'SELECT * FROM users LIMIT 3']";
+	while {isNil("_selectTest") || _selectTest == ""} do {
+		_selectTest = "Arma2Net" callExtension "Arma2NETMySQLCommandAsync getresult";
 		sleep 0.5;  //sleep for a half-second so we don't thrash the server with callExtension calls
 	};
 
@@ -382,7 +379,7 @@ Your SQF code will look something like this:
 .. code-block:: python
 	:linenos:
 
-	_selectTest = "Arma2Net.Unmanaged" callExtension "Arma2NETMySQLCommand ['weapons', 'SELECT * FROM users LIMIT 3']";
+	_selectTest = "Arma2Net" callExtension "Arma2NETMySQLCommand ['weapons', 'SELECT * FROM users LIMIT 3']";
 
 In this example, "weapons" is the database name.  The next portion is the entire SQL query which you will need
 to create manually.  This will block until the database call is complete and the result is returned.
@@ -394,12 +391,9 @@ Your SQF will look something like this:
 .. code-block:: python
 	:linenos:
 
-	_selectTest = nil;
-	while {isNil("_selectTest")} do {
-		_selectTest = "Arma2Net.Unmanaged" callExtension "Arma2NETMySQLCommandAsync ['weapons', 'SELECT * FROM users LIMIT 3']";
-		if (_selectTest == "") then {
-			_selectTest = nil;
-		};
+	_selectTest = "Arma2Net" callExtension "Arma2NETMySQLCommandAsync ['weapons', 'SELECT * FROM users LIMIT 3']";
+	while {isNil("_selectTest") || _selectTest == ""} do {
+		_selectTest = "Arma2Net" callExtension "Arma2NETMySQLCommandAsync getresult";
 		sleep 0.5;  //sleep for a half-second so we don't thrash the server with callExtension calls
 	};
 
@@ -421,6 +415,31 @@ maker.
 
 .. _Arma 2 Example Mission: https://github.com/firefly2442/Arma2NetMySQLPlugin-ExampleMission
 .. _Arma 3 Example Mission: https://github.com/firefly2442/Arma2NetMySQLPlugin-Arma3-ExampleMission
+
+
+
+===============================================
+Security
+===============================================
+
+Running a database requires a reasonable level of skill and attention with regard
+to security.  There are a wide variety of malicious attacks that can be utilized.
+The plugin does not allow the `root` user as a precautionary measure.  Make sure
+to create a user that is locked down to a single database.  This limits the ability
+of an attack to that specific database.  SQL injection attacks are another thing
+to prepare for.  By the time the SQL query gets to the plugin,
+there is no way to determine what was the original query and what was the attack.
+
+One way to minimize this is to use prepared statements.
+Another way is to escape certain characters like quotes.  This escaping
+needs to be done on the SQF mission side.  See the `sanitizeInput.sqf` script in the
+Arma 3 example mission for an example.  These security precautions are fairly
+rudimentary.  Just be aware that users could get access to the data, change the data,
+or delete the entire database at any time.  **We will not be responsible if something gets deleted!**
+
+If you have a specific suggestion for a security improvement or found a security
+exploit, please submit an issue on the Github project page.
+
 
 
 ===============================================
@@ -572,9 +591,17 @@ over the .DLL to the appropriate folder, otherwise you'll be running the old ver
 Changelog
 ===============================================
 
-* Version 1.0 beta
+* Version 0.2.0.0
 
-	* Currently in testing
+	* Updated for new Arma2NET version.
+	* Disallows `root` user.
+	* Adds some SQL injection prevention in example via sanitizeInput.sqf.
+	* Adds alias ability to point to a different database name.
+	* Switched Databases.txt to Databases.config to prevent a `loadFile` attack.
+
+* Version 0.1.0.0
+
+	* Initial release.
 
 
 ===============================================
