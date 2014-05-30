@@ -25,8 +25,8 @@ It uses the `Arma2NET`_ wrapper system.  It is written in C#.  The program has t
 same system as your Arma2/Arma3 server, however, the MySQL database can be either local or remote.
 The SQLite database runs on the local machine.
 
-Please read this entire document as it
-has many important details regarding the installation and setup.
+**Please read this entire document as it
+has many important details regarding the installation and setup.**
 
 .. _Arma2NET: http://github.com/ScottNZ/Arma2NET
 .. _MySQL: http://www.mysql.com
@@ -198,7 +198,7 @@ Any line that starts with a pound/hash sign "#" is considered a comment.
 	
 Some servers force a specific database name or a set prefix in MySQL.  Your server may not allow creating new MySQL databases or
 you may want to use a different database name than what was hard-coded into a mission.  To get around this limitation, you can add
-aliases to the config file.  Just type `alias,from,to`, where `from` and `to` are the database names you want to
+aliases to the config file.  Just type: `alias,from,to` where `from` and `to` are the database names you want to
 translate to.  For example, you might have something that looks like this:
 
 .. code-block:: html
@@ -230,7 +230,7 @@ For example your command line parameters (for the server which connects to the d
 
 See the `Arma 2 startup parameters`_ or `Arma 3 startup parameters`_ pages for more details.
 
-This plugin doesn't require any other third party mods like ACE or CBA.  But, they do have some nice utility functions
+This plugin doesn't require any other third party mods like ACE or CBA.  However, CBA does have some nice utility functions
 and features that may be helpful when you make your missions.
 
 Arma2/Arma3 player clients do not need to do any of this.  This plugin runs serverside.
@@ -580,7 +580,7 @@ which is provided by the MySQL Connector listed above.  System.Data.SQLite shoul
 by the SQLite precompiled binaries listed above.
 
 Once these are set, you can compile the sourcecode.  The resulting .DLL should be placed
-in the Arma2NET Addins folder here: @Arma2NET\AddIns\Arma2NETMySQLPlugin.  Each plugin is stored in a folder with the name of the DLL.
+in the Arma2NET Addins folder here: `@Arma2NET/AddIns/Arma2NETMySQLPlugin/`.  Each plugin is stored in a folder with the name of the DLL.
 Any dependency DLLs can also be placed in this folder as well.
 
 For easy testing, you can use Arma2NetExplorer.exe provided by Arma2NET.  After launching this program, click "list addins" to see
@@ -599,6 +599,9 @@ extremely helpful for testing without having to load up Arma2/Arma3.
 Make sure if you make a change to the C# code that you recompile and copy
 over the .DLL to the appropriate folder, otherwise you'll be running the old version and won't see any changes.
 
+
+If you would like to contribute code or fixes, please fork the project on Github
+and submit a pull request.
 
 ===============================================
 Changelog
@@ -675,12 +678,8 @@ If you have any questions about translations, please ask on the `Arma2NETMySQLPl
 License
 ===============================================
 
-Arma2NETMySQL is licensed under the GPL version 3 (see license.txt).
-Format.cs is licensed under Apache version 2 which is compatible with the GPL version 3 license.
-
-If you would like
-to contribute code or fixes, please fork the project on Github
-and submit a pull request.
+Arma2NETMySQL is licensed under the GPL version 3 (see `license.txt`).
+`Format.cs` is licensed under Apache version 2 which is compatible with the GPL version 3 license.
 
 
 ===============================================
@@ -690,6 +689,7 @@ Thanks To
 * Scott_NZ for `Arma2NET`_
 * Hatchet, Robalo, Buehgler and all the guys over at `AlphaSquad`_
 * JMan at `Kellys Heroes`_
+* Riouken for help with the GUI and example mission
 * All the testers
 * All the translators
 * `Bohemia Interactive`_
