@@ -662,6 +662,7 @@ License
 ===============================================
 
 Arma2NETMySQL is licensed under the GPL version 3 (see license.txt).
+Format.cs is licensed under Apache version 2 which is compatible with the GPL version 3 license.
 
 If you would like
 to contribute code or fixes, please fork the project on Github
