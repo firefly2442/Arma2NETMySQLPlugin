@@ -92,7 +92,7 @@ To run the plugin:
 .. warning:: If you are using a precompiled version of this plugin, you will need to use the specific version of the connectors
    for MySQL and SQLite listed below.  The precompiled version of the plugin **will not work with any other version**.
    I will attempt to keep the precompiled version relatively up-to-date.  Alternatively,
-   you can compile the plugin yourself on Windows if you have Visual Studio.  See the section
+   you can compile the plugin yourself on Windows if you have Visual Studio 2013.  See the section
    `For Developers` for more details on this.
 
 * `MySQL Connector for .NET`_
@@ -194,7 +194,21 @@ Any line that starts with a pound/hash sign "#" is considered a comment.
 	This is generally a really bad choice because this user has full access.
 	**We will not be responsible if something gets deleted!**  Please note that there
 	are no checks for `SQL injection`_ attacks so be extremely
-	careful about how you allow users to input information that will run against the database.  See the section on security for additional details.
+	careful about how you allow users to input information that will run against the database.  See the section, `Security` for additional details.
+	
+Some servers force a specific database name or a set prefix in MySQL.  Your server may not allow creating new MySQL databases or
+you may want to use a different database name than what was hard-coded into a mission.  To get around this limitation, you can add
+aliases to the config file.  Just type `alias,from,to`, where `from` and `to` are the database names you want to
+translate to.  For example, you might have something that looks like this:
+
+.. code-block:: html
+
+	mysql,prefix_weapons,192.168.1.105,3306,arma,123
+	alias,weapons,prefix_weapons
+	
+In the example, the mission is setup to use the database name `weapons` but through the alias, it will actually
+point to and use the database name `prefix_weapons`.  This is completely optional of course, if you have the ability
+to create databases you can just use an ordinary connection string as it's listed.
 	
 Put the Databases.config file in the appropriate location given the folder structure
 that you decided on above.
@@ -437,7 +451,7 @@ rudimentary.  Just be aware that users could get access to the data, change the 
 or delete the entire database at any time.  **We will not be responsible if something gets deleted!**
 
 If you have a specific suggestion for a security improvement or found a security
-exploit, please submit an issue on the Github project page.
+exploit, please submit an issue on the `Arma2NETMySQLPlugin Github Page`_.
 
 
 
@@ -558,7 +572,7 @@ log files, otherwise we will have problems helping you.
 For Developers
 ===============================================
 
-To examine the sourcecode, open up the provided Visual Studio project.  To compile the code into a .DLL check to make sure
+To examine the sourcecode, open up the provided Visual Studio 2013 project.  To compile the code into a .DLL check to make sure
 the references are pointing to the correct place.
 
 MySql.Data needs to be listed in the references and should point to "MySql.Data.dll"
@@ -593,6 +607,7 @@ Changelog
 * Version 0.2.0.0
 
 	* Updated for new Arma2NET version.
+		* Missions built for the previous version will need to be modified slightly.
 	* Disallows `root` user.
 	* Adds some SQL injection prevention in example via sanitizeInput.sqf.
 	* Adds alias ability to point to a different database name.
