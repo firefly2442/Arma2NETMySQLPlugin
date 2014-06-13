@@ -47,7 +47,7 @@ namespace Arma2NETMySQLPlugin
              * The limit is 16 Kilobytes (for Arma 2 beta 97299)
              * One character = one byte
              * The Wiki notes that this size limit could change through future patches.
-             * https://dev-heaven.net/issues/25915
+             * https://dev.withsix.com/issues/25915
              * 
              * Arma2NET has a long output addin method that does the following:
              * "From version 1.5, Arma2NET supports plugins requiring the maximum result size as an argument to the Run method.
