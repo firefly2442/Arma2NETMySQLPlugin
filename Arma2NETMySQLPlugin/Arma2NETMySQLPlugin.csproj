@@ -48,10 +48,25 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Linux_Debug|AnyCPU'">
+    <OutputPath>bin\Linux_Debug\</OutputPath>
+	<DefineConstants>LINUX</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Linux_Debug|x86'">
+    <OutputPath>bin\x86\Linux_Debug\</OutputPath>
+	<DefineConstants>LINUX</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup Condition="$(Configuration)!='Linux_Debug'">
     <Reference Include="Arma2Net">
       <HintPath>..\..\Arma2NET\Release\@Arma2NET\Arma2Net.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup Condition="$(Configuration)=='Linux_Debug'">
+    <Reference Include="Arma2Net.Addins">
+	  <HintPath>..\..\Arma2NET\Arma2Net.Addins\obj\Debug\Arma2Net.Addins.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="MySql.Data, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\MySQL\MySQL Connector Net 6.6.5\Assemblies\v4.0\MySql.Data.dll</HintPath>

@@ -20,7 +20,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
+
+//this LINUX define is provided via the .csproj file and the specified solution configuration
+#if LINUX
+using Arma2Net.Addins;
+#else
 using Arma2Net;
+#endif
 
 namespace Arma2NETMySQLPlugin
 {
