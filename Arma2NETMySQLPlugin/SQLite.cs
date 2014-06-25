@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Data.SQLite;
+using Mono.Data.Sqlite;
 using System.Data;
 using System.IO;
 
@@ -26,7 +26,7 @@ namespace Arma2NETMySQLPlugin
 {
     public class SQLite : SQL
     {
-        private SQLiteConnection sqlite_connection;
+        private SqliteConnection sqlite_connection;
         private string sqliteDatabaseLocation = null;
 
         public SQLite()
@@ -57,7 +57,9 @@ namespace Arma2NETMySQLPlugin
                 if (sqlite_connection == null)
                 {
                     Logger.addMessage(Logger.LogType.Info, "SQLite folder location: " + sqliteDatabaseLocation);
-                    sqlite_connection = new SQLiteConnection("Data Source=" + sqliteDatabaseLocation + databasename + ".sqlite");
+                    //this SQLite assembly only supports database version 3
+                    //https://www.sqlite.org/version3.html
+                    sqlite_connection = new SqliteConnection("Data Source=" + sqliteDatabaseLocation + databasename + ".sqlite; Version=3;");
                 }
 
                 sqlite_connection.Open();
@@ -92,15 +94,15 @@ namespace Arma2NETMySQLPlugin
 
         public override IEnumerable<string[][]> RunCommand(string sql_command, int maxResultSize)
         {
-            //SQLite example code:
-            //http://www.dreamincode.net/forums/topic/157830-using-sqlite-with-c%23/
+            //SQLite library from the Mono project
+            //http://www.mono-project.com/SQLite
 
             DataTable dt = new DataTable();
             try
             {
-                SQLiteCommand mycommand = new SQLiteCommand(sqlite_connection);
+                SqliteCommand mycommand = new SqliteCommand(sqlite_connection);
                 mycommand.CommandText = sql_command;
-                SQLiteDataReader reader = mycommand.ExecuteReader();
+                SqliteDataReader reader = mycommand.ExecuteReader();
                 dt.Load(reader);
                 reader.Close();
             }
